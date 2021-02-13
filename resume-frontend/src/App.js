@@ -1,14 +1,16 @@
 import './App.css';
 import { Header } from "./components/Header";
-import { Resume } from "./components/Resume";
+import { Nav } from "./components/Nav";
+
+// const api_url = 'http://localhost:3001/api/v1/resumes'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Header/>
+        <Nav/>
       </header>
-      <Resume/>
+      <Header/>
     </div>
   );
 }

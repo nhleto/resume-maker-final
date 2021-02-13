@@ -7,8 +7,7 @@ export class Resume extends React.Component{
     super(props)
 
     this.state = {
-      resumes: [],
-      skills: [],
+      resumes: []
     }
   }
 
@@ -21,8 +20,7 @@ export class Resume extends React.Component{
     .then(response => response.json())
     .then(response_items => {
       this.setState({
-        resumes: Object.values(response_items)[0],
-        skills: Object.values(response_items)[1],
+        resumes: response_items,
       })
     });
   }

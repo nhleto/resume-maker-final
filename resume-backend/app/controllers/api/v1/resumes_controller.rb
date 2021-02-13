@@ -5,8 +5,7 @@ class Api::V1::ResumesController < ApplicationController
   # GET /resumes.json
   def index
     @resumes = Resume.all
-    @skills = @resumes.map(&:skills)
-    render json: { resumes: @resumes, skills: @skills }
+    render json: @resumes, include: [:skills]
   end
 
   # GET /resumes/1
@@ -50,6 +49,6 @@ class Api::V1::ResumesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def resume_params
-    params.fetch(:resume, {})
+    params.fetch(:resume, {}).permit(:id)
   end
 end

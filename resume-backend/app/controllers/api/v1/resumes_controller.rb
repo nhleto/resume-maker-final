@@ -5,7 +5,7 @@ class Api::V1::ResumesController < ApplicationController
   # GET /resumes.json
   def index
     @resumes = Resume.all
-    render json: @resumes, include: [:skills]
+    render json: @resumes, include: %i[headers educations work_experiences skills]
   end
 
   # GET /resumes/1

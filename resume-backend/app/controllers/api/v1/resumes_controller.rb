@@ -16,9 +16,12 @@ class Api::V1::ResumesController < ApplicationController
   # POST /resumes.json
   def create
     @resume = Resume.new(resume_params)
-
+    @resume.headers.build(name: params[:header][0])
+    @resume.educations.build
+    @resume.work_experiences.build
+    @resume.skills.build
     if @resume.save
-      render json: @resume, status: :created, location: @resume
+      render json: @resume, status: :created, location: api_v1_resumes_url(@resume)
     else
       render json: @resume.errors, status: :unprocessable_entity
     end
@@ -49,6 +52,10 @@ class Api::V1::ResumesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def resume_params
-    params.fetch(:resume, {}).permit(:id)
+    params.fetch(:resume, {}).permit(:name)
+  #   params.require(:resume).permit(:name, headers_attributes: %i[resume_id name phone email website location],
+  #                                             work_experiences_attributes: %i[resume_id company_name title responsibilites employment_length],
+  #                                             educations_attributes: %i[resume_id school_name major gpa study_length],
+  #                                             skills_attributes: %i[resume_id id name])
   end
 end

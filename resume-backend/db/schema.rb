@@ -10,60 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_142619) do
-
+ActiveRecord::Schema.define(version: 20_210_213_142_619) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "educations", force: :cascade do |t|
-    t.bigint "resume_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "school_name"
-    t.string "major"
-    t.daterange "study_length"
-    t.integer "gpa"
-    t.index ["resume_id"], name: "index_educations_on_resume_id"
+  create_table 'educations', force: :cascade do |t|
+    t.bigint 'resume_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'school_name'
+    t.string 'major'
+    t.daterange 'study_length'
+    t.integer 'gpa'
+    t.index ['resume_id'], name: 'index_educations_on_resume_id'
   end
 
-  create_table "headers", force: :cascade do |t|
-    t.bigint "resume_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.integer "phone"
-    t.string "location"
-    t.string "website"
-    t.string "email"
-    t.index ["resume_id"], name: "index_headers_on_resume_id"
+  create_table 'headers', force: :cascade do |t|
+    t.bigint 'resume_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'name'
+    t.integer 'phone'
+    t.string 'location'
+    t.string 'website'
+    t.string 'email'
+    t.index ['resume_id'], name: 'index_headers_on_resume_id'
   end
 
-  create_table "resumes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'resumes', force: :cascade do |t|
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "skills", force: :cascade do |t|
-    t.bigint "resume_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.index ["resume_id"], name: "index_skills_on_resume_id"
+  create_table 'skills', force: :cascade do |t|
+    t.bigint 'resume_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'name'
+    t.index ['resume_id'], name: 'index_skills_on_resume_id'
   end
 
-  create_table "work_experiences", force: :cascade do |t|
-    t.bigint "resume_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "company_name"
-    t.string "title"
-    t.text "responsibilites"
-    t.daterange "employment_length"
-    t.index ["resume_id"], name: "index_work_experiences_on_resume_id"
+  create_table 'work_experiences', force: :cascade do |t|
+    t.bigint 'resume_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'company_name'
+    t.string 'title'
+    t.text 'responsibilites'
+    t.daterange 'employment_length'
+    t.index ['resume_id'], name: 'index_work_experiences_on_resume_id'
   end
 
-  add_foreign_key "educations", "resumes"
-  add_foreign_key "headers", "resumes"
-  add_foreign_key "skills", "resumes"
-  add_foreign_key "work_experiences", "resumes"
+  add_foreign_key 'educations', 'resumes'
+  add_foreign_key 'headers', 'resumes'
+  add_foreign_key 'skills', 'resumes'
+  add_foreign_key 'work_experiences', 'resumes'
 end

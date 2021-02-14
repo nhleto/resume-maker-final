@@ -184,3 +184,17 @@ input:focus{
 .sub-section{
   flex-grow: .5;
 }
+
+.employment-range{
+  flex-grow: .2;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+button:hover{
+  background-color: silver;
+}

@@ -12,14 +12,27 @@ export class Header extends React.Component{
 
     // this.props.sendData = this.sendData.bind(this)
     this.formSubmit = this.formSubmit.bind(this)
+    this.getValue = this.getValue.bind(this)
+    // this.sendData = this.props.getData.bind(this)
   }
 
-  // demoMethod(){
-  //   this.props.sendData(value)
-  // }
+  formSubmit(e){
+    e.preventDefault()
+    this.getValue()
+  }
 
-  formSubmit(event){
-    event.preventDefault()
+  getValue(){
+    let inputs = document.querySelectorAll('#name_input, #phone_input, #location_input, #website_input, #email_input')
+    let values = []
+    inputs.forEach(element => {
+      values.push(element.value)
+    });
+    this.setState({
+      header: values
+    })
+    setTimeout(() => {
+      this.props.getData(this.state.header)
+    }, 25);
   }
 
   render(){
@@ -29,8 +42,7 @@ export class Header extends React.Component{
         <div className="sub-section">
           <h2 className="title">Contact Information</h2>
           <div className="info">
-            <form
-            onSubmit={this.formSubmit}>
+
               <div className="top-row">
                 <div className="control name">
                   <label className='label'>Name</label>
@@ -43,7 +55,7 @@ export class Header extends React.Component{
                 </div>
                 <div className="control phone">
                   <label className='label'>Phone</label>
-                  <input type="text"
+                  <input type="tel"
                   id='phone_input'
                   className='input'
                   autoComplete='off'
@@ -63,7 +75,7 @@ export class Header extends React.Component{
                 </div>
                 <div className="control website">
                   <label className='label'>Website</label>
-                  <input type="text"
+                  <input type="url"
                   id='website_input'
                   className='input'
                   autoComplete='off'
@@ -72,19 +84,14 @@ export class Header extends React.Component{
                 </div>
                 <div className="control email">
                   <label className='label'>Email</label>
-                  <input type="text"
+                  <input type="email"
                   id='email_input'
                   className='input'
                   autoComplete='off'
                   placeholder='Email'/>
                   <span className='mui-Bottom'></span>
                 </div>
-              </div>
-              <button className='button'
-              type='submit'
-              style={{color:'black', marginTop:'10px'}}>
-              Create Resume/Header</button>          
-            </form>
+              </div>        
           </div>
         </div>
       </div>

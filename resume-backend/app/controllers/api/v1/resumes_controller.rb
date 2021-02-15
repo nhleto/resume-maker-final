@@ -16,10 +16,10 @@ class Api::V1::ResumesController < ApplicationController
   # POST /resumes.json
   def create
     @resume = Resume.new(resume_params)
-    @resume.headers.build(name: params[:header][0])
-    @resume.educations.build
-    @resume.work_experiences.build
-    @resume.skills.build
+    header_build(@resume)
+    education_build(@resume)
+    work_experience_build(@resume)
+    skills_build(@resume)
     if @resume.save
       render json: @resume, status: :created, location: api_v1_resumes_url(@resume)
     else
@@ -45,17 +45,44 @@ class Api::V1::ResumesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_resume
-    @resume = Resume.find(params[:id])
+  def skills_build(resume)
+    resume.skills.build(
+      name: params[:skills][0]
+    )
+  end
+
+  def education_build(resume)
+    daterange = "#{params[:education][2]}, #{params[:education][3]})"
+    resume.educations.build(
+      school_name: params[:education][0],
+      major: params[:education][1],
+      study_length: daterange,
+      gpa: params[:education][-1]
+    )
+  end
+
+  def work_experience_build(resume)
+    daterange = "#{params[:work_experience][3]}, #{params[:work_experience][4]})"
+    resume.work_experiences.build(
+      company_name: params[:work_experience][0],
+      title: params[:work_experience][1],
+      responsibilites: params[:work_experience][2],
+      employment_length: daterange
+    )
+  end
+
+  def header_build(resume)
+    resume.headers.build(
+      name: params[:header][0],
+      phone: params[:header][1],
+      location: params[:header][2],
+      website: params[:header][3],
+      email: params[:header][4]
+    )
   end
 
   # Only allow a list of trusted parameters through.
   def resume_params
     params.fetch(:resume, {}).permit(:name)
-  #   params.require(:resume).permit(:name, headers_attributes: %i[resume_id name phone email website location],
-  #                                             work_experiences_attributes: %i[resume_id company_name title responsibilites employment_length],
-  #                                             educations_attributes: %i[resume_id school_name major gpa study_length],
-  #                                             skills_attributes: %i[resume_id id name])
   end
 end

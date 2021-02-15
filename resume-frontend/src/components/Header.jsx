@@ -75,7 +75,7 @@ export class Header extends React.Component{
                 </div>
                 <div className="control website">
                   <label className='label'>Website</label>
-                  <input type="url"
+                  <input type="text"
                   id='website_input'
                   className='input'
                   autoComplete='off'

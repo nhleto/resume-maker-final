@@ -55,10 +55,12 @@ export class Education extends React.Component{
               <div className="control website">
                 <label className='label'>GPA</label>
                 <input type="number"
+                step="0.01"
+                min='0'
                 id='gpa_input'
                 className='input'
                 autoComplete='off'
-                placeholder='Website'/>
+                placeholder='Grade Point Average'/>
                 <span className='mui-Bottom'></span>
               </div>
             </div>  

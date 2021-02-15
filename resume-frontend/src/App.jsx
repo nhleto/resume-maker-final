@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import { Nav } from "./components/Nav";
 import { WorkExperience } from "./components/WorkExperience";
 import { Education } from "./components/Education";
+import { Skills } from "./components/Skills";
 
 const api_url = 'http://localhost:3001/api/v1/resumes'
 
@@ -72,6 +73,7 @@ class App extends React.Component{
           <Header getData={this.getData}/>
           <Education />
           <WorkExperience />
+          <Skills />
           <div className="center">
             <button className='button'
             type='submit'

@@ -40,9 +40,8 @@ export class Header extends React.Component{
     return(
       <div className="section">
         <div className="sub-section">
-          <h2 className="title">Contact Information</h2>
+        <h2 className="title">Contact Information</h2>
           <div className="info">
-
               <div className="top-row">
                 <div className="control name">
                   <label className='label'>Name</label>

@@ -16,12 +16,14 @@ export class Skills extends React.Component{
   addSkill(e){
     e.stopPropagation()
     e.preventDefault()
-    let skillVal = document.querySelector('#skill_name')
-    let newName = [...this.state.name, skillVal.value]
-    this.setState({
-      name: newName
-    })
-    skillVal.value = ''
+    const skillVal = document.querySelector('#skill_name')
+    if (skillVal.value !== ''){
+      let newName = [...this.state.name, skillVal.value]
+      this.setState({
+        name: newName
+      })  
+      skillVal.value = ''
+    }
   }
 
   render(){

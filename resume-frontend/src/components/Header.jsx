@@ -6,14 +6,14 @@ export class Header extends React.Component{
     super(props)
 
     this.state = {
-      header: [],
-      api_url: this.props.api_url
+      name: '',
+      phone: '',
+      location: '',
+      website: '',
+      email: ''
     }
-
-    // this.props.sendData = this.sendData.bind(this)
-    this.formSubmit = this.formSubmit.bind(this)
     this.getValue = this.getValue.bind(this)
-    // this.sendData = this.props.getData.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   formSubmit(e){
@@ -22,7 +22,7 @@ export class Header extends React.Component{
   }
 
   getValue(){
-    let inputs = document.querySelectorAll('#name_input, #phone_input, #location_input, #website_input, #email_input')
+    let inputs = document.querySelectorAll('input')
     let values = []
     inputs.forEach(element => {
       values.push(element.value)
@@ -30,9 +30,14 @@ export class Header extends React.Component{
     this.setState({
       header: values
     })
-    setTimeout(() => {
-      this.props.getData(this.state.header)
-    }, 25);
+  }
+
+  handleChange(evt){
+    const value = evt.target.value
+    this.setState({
+      [evt.target.name]: value
+    });
+    this.props.onInputChange(this.state)
   }
 
   render(){
@@ -46,6 +51,8 @@ export class Header extends React.Component{
                 <div className="control name">
                   <label className='label'>Name</label>
                   <input type="text"
+                  name='name'
+                  onChange={this.handleChange}
                   id='name_input'
                   className='input'
                   autoComplete='off'
@@ -55,6 +62,8 @@ export class Header extends React.Component{
                 <div className="control phone">
                   <label className='label'>Phone</label>
                   <input type="tel"
+                  onChange={this.handleChange}
+                  name='phone'
                   id='phone_input'
                   className='input'
                   autoComplete='off'
@@ -66,6 +75,8 @@ export class Header extends React.Component{
                 <div className="control location">
                   <label className='label'>Location</label>
                   <input type="text"
+                  onChange={this.handleChange}
+                  name='location'
                   id='location_input'
                   className='input'
                   autoComplete='off'
@@ -75,6 +86,8 @@ export class Header extends React.Component{
                 <div className="control website">
                   <label className='label'>Website</label>
                   <input type="text"
+                  name='website'
+                  onChange={this.handleChange}
                   id='website_input'
                   className='input'
                   autoComplete='off'
@@ -84,13 +97,15 @@ export class Header extends React.Component{
                 <div className="control email">
                   <label className='label'>Email</label>
                   <input type="email"
+                  name='email'
+                  onChange={this.handleChange}
                   id='email_input'
                   className='input'
                   autoComplete='off'
                   placeholder='Email'/>
                   <span className='mui-Bottom'></span>
                 </div>
-              </div>        
+              </div>
           </div>
         </div>
       </div>

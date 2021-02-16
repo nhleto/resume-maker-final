@@ -20,17 +20,17 @@ class App extends React.Component{
       skills: []
     }
     this.formSubmit = this.formSubmit.bind(this)
-    this.getData = this.getData.bind(this)
+    // this.getData = this.getData.bind(this)
     this.assignValues = this.assignValues.bind(this)
   }
 
-  getData(data){
-    let _header = this.state.header
-    _header.unshift(data)
-    this.setState({
-      header: _header
-    })
-  }
+  // getData(data){
+  //   let _header = this.state.header
+  //   _header.unshift(data)
+  //   this.setState({
+  //     header: _header
+  //   })
+  // }
 
   formSubmit(e){
     e.preventDefault()
@@ -69,13 +69,14 @@ class App extends React.Component{
         <header className="App-header">
           <Nav/>
         </header>
-        <form onSubmit={this.formSubmit}>
-          <Header getData={this.getData}/>
+        <form>
+          <Header />
           <Education />
           <WorkExperience />
           <Skills />
           <div className="center">
             <button className='button'
+            onClick={this.formSubmit}
             type='submit'
             style={{color:'black', marginTop:'10px'}}>
             Create Resume/Header</button>

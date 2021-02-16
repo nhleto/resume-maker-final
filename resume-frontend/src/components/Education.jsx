@@ -4,6 +4,26 @@ export class Education extends React.Component{
 
   constructor(props){
     super(props)
+
+    this.state={
+      education: ({
+        institution_name: '',
+        major: '',
+        begin_attendance: '',
+        graduation: '',
+        gpa: ''
+      })
+    }
+    this.handleChange = this.handleChange.bind(this)
+
+  }
+
+  handleChange(evt){
+    const value = evt.target.value
+    this.setState({
+      header: {...this.state.header, [evt.target.name]: value}  
+    });
+    this.props.onInputChange(this.state)
   }
 
   render(){
@@ -18,6 +38,8 @@ export class Education extends React.Component{
                 <label className='label'>Institution Name</label>
                 <input type="text"
                 id='institution Name'
+                onChange={this.handleChange}
+                name='institution_name'
                 className='input'
                 autoComplete='off'
                 placeholder='Name of Institution'/>
@@ -27,6 +49,8 @@ export class Education extends React.Component{
                 <label className='label'>Area of Study</label>
                 <input type="text"
                 id='major_input'
+                onChange={this.handleChange}
+                name='major'
                 className='input'
                 autoComplete='off'
                 placeholder='Major'/>
@@ -37,6 +61,8 @@ export class Education extends React.Component{
               <div className="control location">
                 <label className='label'>Begin Attendance</label>
                 <input type="date"
+                onChange={this.handleChange}
+                name='begin_attendance'
                 id='study_range_input'
                 className='input'
                 autoComplete='off'
@@ -46,6 +72,8 @@ export class Education extends React.Component{
               <div className="control location">
                 <label className='label'>Graduation</label>
                 <input type="date"
+                onChange={this.handleChange}
+                name='graduation'
                 id='study_range_input'
                 className='input'
                 autoComplete='off'
@@ -55,6 +83,8 @@ export class Education extends React.Component{
               <div className="control website">
                 <label className='label'>GPA</label>
                 <input type="number"
+                onChange={this.handleChange}
+                name='gpa'
                 step="0.01"
                 min='0'
                 id='gpa_input'

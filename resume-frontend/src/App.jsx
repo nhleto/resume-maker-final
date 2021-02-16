@@ -20,17 +20,10 @@ class App extends React.Component{
       skills: []
     }
     this.formSubmit = this.formSubmit.bind(this)
-    this.getData = this.getData.bind(this)
     this.assignValues = this.assignValues.bind(this)
+    this.onInputChange = this.onInputChange.bind(this)
   }
 
-  getData(data){
-    // data.preventDefault()
-    this.setState({
-      header: [...this.state.header, data]
-    })
-    console.log(this.state)
-  }
 
   formSubmit(e){
     e.preventDefault()
@@ -39,10 +32,11 @@ class App extends React.Component{
     inputs.forEach(element => {
       values.push(element.value)
     });
-    this.assignValues(values)
+    // this.assignValues(values)
     this.submitter()
   }
 
+  //TODO: refactor this method for new nested inputs
   assignValues(values){
     console.log(values)
     this.setState({
@@ -64,20 +58,31 @@ class App extends React.Component{
   }
 
   onInputChange(value){
-    this.setState({
-      header: value
-    })
+    let key = Object.keys(value)
+    key = key.join()
+    if (key === 'header'){
+      this.setState({
+        header: value
+      })
+    } else if (key === 'education'){
+      this.setState({
+        education: value
+    })}
+    // this.setState({
+    //   [key]: value
+    // })
     console.log(this.state)
   }
 
   render(){
+
     return (
       <div className="app">
         <header className="App-header">
           <Nav/>
         </header>
-          <Header onInputChange={this.onInputChange.bind(this)}/>
-          <Education />
+          <Header onInputChange={this.onInputChange}/>
+          <Education onInputChange={this.onInputChange} />
           <WorkExperience />
           <Skills />
           <div className="center">

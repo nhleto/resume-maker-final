@@ -6,19 +6,16 @@ export class Header extends React.Component{
     super(props)
 
     this.state = {
-      name: '',
-      phone: '',
-      location: '',
-      website: '',
-      email: ''
+      header: ({
+        name: '',
+        phone: '',
+        location: '',
+        website: '',
+        email: ''
+      })
     }
     this.getValue = this.getValue.bind(this)
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  formSubmit(e){
-    e.preventDefault()
-    this.getValue()
   }
 
   getValue(){
@@ -35,7 +32,7 @@ export class Header extends React.Component{
   handleChange(evt){
     const value = evt.target.value
     this.setState({
-      [evt.target.name]: value
+      header: {...this.state.header, [evt.target.name]: value}  
     });
     this.props.onInputChange(this.state)
   }

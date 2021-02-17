@@ -15,6 +15,7 @@ class Api::V1::ResumesController < ApplicationController
   # POST /resumes
   # POST /resumes.json
   def create
+    # puts "params: #{params}"
     @resume = Resume.new(resume_params)
     header_build(@resume)
     education_build(@resume)
@@ -72,17 +73,20 @@ class Api::V1::ResumesController < ApplicationController
   end
 
   def header_build(resume)
+    # byebug
     resume.headers.build(
-      name: params[:header][0],
-      phone: params[:header][1],
-      location: params[:header][2],
-      website: params[:header][3],
-      email: params[:header][4]
+      name: params[:resume][:headers][:name],
+      phone: params[:resume][:headers][:phone],
+      location: params[:resume][:headers][:location],
+      website: params[:resume][:headers][:website],
+      email: params[:resume][:headers][:email]
     )
   end
 
   # Only allow a list of trusted parameters through.
   def resume_params
-    params.fetch(:resume, {}).permit(:name)
+    # byebug
+    # json_params = ActionController::Parameters.new(JSON.parse(params))
+    params.require(:resume).permit(:name, headers: %i[name phone email website location])
   end
 end

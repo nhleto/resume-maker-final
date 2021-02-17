@@ -6,7 +6,7 @@ export class Header extends React.Component{
     super(props)
 
     this.state = {
-      header: ({
+      headers: ({
         name: '',
         phone: '',
         location: '',
@@ -20,7 +20,7 @@ export class Header extends React.Component{
   handleChange(evt){
     const value = evt.target.value
     this.setState({
-      header: {...this.state.header, [evt.target.name]: value}  
+      headers: {...this.state.headers, [evt.target.name]: value}  
     });
     this.props.onInputChange(this.state)
   }

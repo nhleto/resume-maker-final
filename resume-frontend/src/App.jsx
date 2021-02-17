@@ -13,34 +13,21 @@ class App extends React.Component{
     super(props)
 
     this.state = {
-      resume:{}
+      values: { resume: {} },
+      education_sections: {
+        counter: 1,
+        components: []
+      }
     }
   
     this.formSubmit = this.formSubmit.bind(this)
-    this.assignValues = this.assignValues.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
+    this.addSection = this.addSection.bind(this)
   }
-
 
   formSubmit(e){
     e.preventDefault()
-    // let inputs = document.querySelectorAll('input, textarea')
-    // let values = []
-    // inputs.forEach(element => {
-    //   values.push(element.value)
-    // });
-    // this.onInputChange()
     this.submitter()
-  }
-
-  //TODO: refactor this method for new nested inputs
-  assignValues(values){
-    console.log(values)
-    this.setState({
-      header: values.slice(0, 5),
-      education: values.slice(5, 10),
-      work_experience: values.slice(10, 15)
-    })
   }
 
   async submitter(){
@@ -50,15 +37,31 @@ class App extends React.Component{
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(this.state.values)
     }).then(response => console.log(response))
   }
 
   onInputChange(data){
-    let newOne = Object.assign(this.state.resume, data)
+    let newOne = Object.assign(this.state.values.resume, data)
     this.setState({
       resume: newOne
     })
+  }
+
+  addSection(){
+    const { count } = this.state.education_sections.counter
+    const { components } = this.state.education_sections.components
+    this.setState({ counter: this.state.education_sections.counter += 1 })
+    let edComponents = [... this.state.education_sections.components, <Header/>]
+    for (let i = 0; i < count; i++) {
+      this.setState({
+        components: edComponents
+      })      
+    }
+    // this.setState({ components: edComponents })
+    // console.log(edComponents)
+    console.log(this.state.education_sections)
+    // console.log(this.state.education_sections.counter, this.state.education_sections.components )
   }
 
   render(){
@@ -68,8 +71,10 @@ class App extends React.Component{
         <header className="App-header">
           <Nav/>
         </header>
-          <Header onInputChange={this.onInputChange}/>
-          <Education onInputChange={this.onInputChange} />
+          <Header onInputChange={this.onInputChange} />
+          <Education onInputChange={this.onInputChange} 
+            addSection={this.addSection} 
+            counter={this.state.educations} />
           <WorkExperience onInputChange={this.onInputChange} />
           <Skills onInputChange={this.onInputChange} />
           <div className="center">

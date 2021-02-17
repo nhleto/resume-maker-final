@@ -6,6 +6,7 @@ export class Education extends React.Component{
     super(props)
 
     this.state={
+      count: 1,
       education: ({
         institution_name: '',
         major: '',
@@ -15,7 +16,7 @@ export class Education extends React.Component{
       })
     }
     this.handleChange = this.handleChange.bind(this)
-
+    this.sectionCount = this.sectionCount.bind(this)
   }
 
   handleChange(evt){
@@ -26,6 +27,13 @@ export class Education extends React.Component{
     this.props.onInputChange(this.state)
   }
 
+  sectionCount(){
+    // this.setState({
+    //   count: this.state.count += 1
+    // })
+    this.props.addSection()
+  }
+
   render(){
 
     return(
@@ -33,68 +41,72 @@ export class Education extends React.Component{
         <div className="sub-section">
         <h2 className="title">Education</h2>
         <div className="info">
-            <div className="top-row">
-              <div className="control name">
-                <label className='label'>Institution Name</label>
-                <input type="text"
-                id='institution Name'
-                onChange={this.handleChange}
-                name='institution_name'
-                className='input'
-                autoComplete='off'
-                placeholder='Name of Institution'/>
-                <span className='mui-Bottom'></span>
-              </div>
-              <div className="control phone">
-                <label className='label'>Area of Study</label>
-                <input type="text"
-                id='major_input'
-                onChange={this.handleChange}
-                name='major'
-                className='input'
-                autoComplete='off'
-                placeholder='Major'/>
+          <div className="top-row">
+            <div className="control name">
+              <label className='label'>Institution Name</label>
+              <input type="text"
+              id='institution Name'
+              onChange={this.handleChange}
+              name='institution_name'
+              className='input'
+              autoComplete='off'
+              placeholder='Name of Institution'/>
               <span className='mui-Bottom'></span>
-              </div>
             </div>
-            <div className="second-row">
-              <div className="control location">
-                <label className='label'>Begin Attendance</label>
-                <input type="date"
-                onChange={this.handleChange}
-                name='begin_attendance'
-                id='study_range_input'
-                className='input'
-                autoComplete='off'
-                placeholder='Range'/>
-                <span className='mui-Bottom'></span>
-              </div>
-              <div className="control location">
-                <label className='label'>Graduation</label>
-                <input type="date"
-                onChange={this.handleChange}
-                name='graduation'
-                id='study_range_input'
-                className='input'
-                autoComplete='off'
-                placeholder='Range'/>
-                <span className='mui-Bottom'></span>
-              </div>
-              <div className="control website">
-                <label className='label'>GPA</label>
-                <input type="number"
-                onChange={this.handleChange}
-                name='gpa'
-                step="0.01"
-                min='0'
-                id='gpa_input'
-                className='input'
-                autoComplete='off'
-                placeholder='Grade Point Average'/>
-                <span className='mui-Bottom'></span>
-              </div>
-            </div>  
+            <div className="control phone">
+              <label className='label'>Area of Study</label>
+              <input type="text"
+              id='major_input'
+              onChange={this.handleChange}
+              name='major'
+              className='input'
+              autoComplete='off'
+              placeholder='Major'/>
+            <span className='mui-Bottom'></span>
+            </div>
+          </div>
+          <div className="second-row">
+            <div className="control location">
+              <label className='label'>Begin Attendance</label>
+              <input type="date"
+              onChange={this.handleChange}
+              name='begin_attendance'
+              id='study_range_input'
+              className='input'
+              autoComplete='off'
+              placeholder='Range'/>
+              <span className='mui-Bottom'></span>
+            </div>
+            <div className="control location">
+              <label className='label'>Graduation</label>
+              <input type="date"
+              onChange={this.handleChange}
+              name='graduation'
+              id='study_range_input'
+              className='input'
+              autoComplete='off'
+              placeholder='Range'/>
+              <span className='mui-Bottom'></span>
+            </div>
+            <div className="control website">
+              <label className='label'>GPA</label>
+              <input type="number"
+              onChange={this.handleChange}
+              name='gpa'
+              step="0.01"
+              min='0'
+              id='gpa_input'
+              className='input'
+              autoComplete='off'
+              placeholder='Grade Point Average'/>
+              <span className='mui-Bottom'></span>
+            </div>
+          </div>
         </div>
+        <button className="skills"
+        style={{marginTop:'20px'}}
+        onClick={this.sectionCount}
+        >Add Education +</button>
       </div>
     </div>
     )

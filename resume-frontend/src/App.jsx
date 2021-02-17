@@ -13,12 +13,9 @@ class App extends React.Component{
     super(props)
 
     this.state = {
-      name: 'Title of Resume',
-      header: [],
-      education : [],
-      work_experience: [],
-      skills: []
+      resume:{}
     }
+  
     this.formSubmit = this.formSubmit.bind(this)
     this.assignValues = this.assignValues.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
@@ -27,12 +24,12 @@ class App extends React.Component{
 
   formSubmit(e){
     e.preventDefault()
-    let inputs = document.querySelectorAll('input, textarea')
-    let values = []
-    inputs.forEach(element => {
-      values.push(element.value)
-    });
-    // this.assignValues(values)
+    // let inputs = document.querySelectorAll('input, textarea')
+    // let values = []
+    // inputs.forEach(element => {
+    //   values.push(element.value)
+    // });
+    // this.onInputChange()
     this.submitter()
   }
 
@@ -57,21 +54,11 @@ class App extends React.Component{
     }).then(response => console.log(response))
   }
 
-  onInputChange(value){
-    let key = Object.keys(value)
-    key = key.join()
-    if (key === 'header'){
-      this.setState({
-        header: value
-      })
-    } else if (key === 'education'){
-      this.setState({
-        education: value
-    })}
-    // this.setState({
-    //   [key]: value
-    // })
-    console.log(this.state)
+  onInputChange(data){
+    let newOne = Object.assign(this.state.resume, data)
+    this.setState({
+      resume: newOne
+    })
   }
 
   render(){
@@ -83,8 +70,8 @@ class App extends React.Component{
         </header>
           <Header onInputChange={this.onInputChange}/>
           <Education onInputChange={this.onInputChange} />
-          <WorkExperience />
-          <Skills />
+          <WorkExperience onInputChange={this.onInputChange} />
+          <Skills onInputChange={this.onInputChange} />
           <div className="center">
             <button className='button'
             onClick={this.formSubmit}

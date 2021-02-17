@@ -14,19 +14,7 @@ export class Header extends React.Component{
         email: ''
       })
     }
-    this.getValue = this.getValue.bind(this)
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  getValue(){
-    let inputs = document.querySelectorAll('input')
-    let values = []
-    inputs.forEach(element => {
-      values.push(element.value)
-    });
-    this.setState({
-      header: values
-    })
   }
 
   handleChange(evt){

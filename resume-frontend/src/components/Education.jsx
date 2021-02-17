@@ -21,7 +21,7 @@ export class Education extends React.Component{
   handleChange(evt){
     const value = evt.target.value
     this.setState({
-      header: {...this.state.header, [evt.target.name]: value}  
+      education: {...this.state.education, [evt.target.name]: value}  
     });
     this.props.onInputChange(this.state)
   }

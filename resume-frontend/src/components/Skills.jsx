@@ -8,7 +8,7 @@ export class Skills extends React.Component{
     super(props)
 
     this.state = {
-      name: [],
+      skill_name: [],
     }
     this.addSkill = this.addSkill.bind(this)
   }
@@ -18,16 +18,17 @@ export class Skills extends React.Component{
     e.preventDefault()
     const skillVal = document.querySelector('#skill_name')
     if (skillVal.value !== ''){
-      let newName = [...this.state.name, skillVal.value]
+      let newName = [...this.state.skill_name, skillVal.value]
       this.setState({
-        name: newName
+        skill_name: newName
       })  
       skillVal.value = ''
+      this.props.onInputChange(this.state)
     }
   }
 
   render(){
-    // console.log(this.state)
+
     return(
       <div className="section">
         <div className="sub-section">
@@ -36,12 +37,14 @@ export class Skills extends React.Component{
             <button className='skills' onClick={this.addSkill}>
               Add Skills +
             </button>
-            <input id='skill_name' type="text" style={{marginLeft:'20px'}} />
+            <input id='skill_name' 
+            type="text" 
+            style={{marginLeft:'20px'}} />
             <span className="mui-Bottom"></span>
           </div>
           <div className="tag-container">
             <div className="tag-list">
-              {this.state.name.map(skill=> (
+              {this.state.skill_name.map(skill=> (
                 <SkillTag key={uuid()} skill={skill}/>
               ))}
             </div>

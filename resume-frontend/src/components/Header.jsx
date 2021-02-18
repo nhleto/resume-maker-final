@@ -21,8 +21,9 @@ export class Header extends React.Component{
     const value = evt.target.value
     this.setState({
       headers: {...this.state.headers, [evt.target.name]: value}  
-    });
-    this.props.onInputChange(this.state)
+    }, () => {
+      this.props.onInputChange(this.state);
+    })
   }
 
   render(){

@@ -6,7 +6,6 @@ export class Education extends React.Component{
     super(props)
 
     this.state={
-      count: 1,
       education: ({
         institution_name: '',
         major: '',
@@ -17,21 +16,24 @@ export class Education extends React.Component{
     }
     this.handleChange = this.handleChange.bind(this)
     this.sectionCount = this.sectionCount.bind(this)
+    this.deleteSection = this.deleteSection.bind(this)
   }
 
   handleChange(evt){
     const value = evt.target.value
     this.setState({
-      education: {...this.state.education, [evt.target.name]: value}  
-    });
-    this.props.onInputChange(this.state)
+      education: {...this.state.education, [evt.target.name]: value}
+    }, () => {
+      this.props.onInputChange(this.state);
+    })
   }
 
   sectionCount(){
-    // this.setState({
-    //   count: this.state.count += 1
-    // })
     this.props.addSection()
+  }
+
+  deleteSection(){
+    this.props.deleteSection()
   }
 
   render(){
@@ -106,7 +108,13 @@ export class Education extends React.Component{
         <button className="skills"
         style={{marginTop:'20px'}}
         onClick={this.sectionCount}
+        id='edButton'
         >Add Education +</button>
+        <button className="skills"
+        style={{marginTop:'20px', marginLeft:'20px'}}
+        onClick={this.deleteSection}
+        id='edButton_delete'
+        >Delete Education +</button>        
       </div>
     </div>
     )

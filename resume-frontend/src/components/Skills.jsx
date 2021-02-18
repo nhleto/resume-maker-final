@@ -21,9 +21,10 @@ export class Skills extends React.Component{
       let newName = [...this.state.skill_name, skillVal.value]
       this.setState({
         skill_name: newName
-      })  
+      }, () => {
+        this.props.onInputChange(this.state);
+      });
       skillVal.value = ''
-      this.props.onInputChange(this.state)
     }
   }
 

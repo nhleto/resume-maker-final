@@ -13,8 +13,9 @@ export class WorkExperience extends React.Component{
     const value = evt.target.value
     this.setState({
       work_experience: {...this.state.work_experience, [evt.target.name]: value}  
-    });
-    this.props.onInputChange(this.state)
+    }, () => {
+      this.props.onInputChange(this.state);
+    })
   }
   render(){
     return(

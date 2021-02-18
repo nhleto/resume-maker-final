@@ -14,15 +14,12 @@ class App extends React.Component{
 
     this.state = {
       values: { resume: {} },
-      education_sections: {
-        counter: 1,
-        components: []
-      }
+      education_counter: 1,
     }
-  
     this.formSubmit = this.formSubmit.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
     this.addSection = this.addSection.bind(this)
+    this.deleteSection = this.deleteSection.bind(this)
   }
 
   formSubmit(e){
@@ -46,22 +43,25 @@ class App extends React.Component{
     this.setState({
       resume: newOne
     })
+    console.log(this.state.values)
   }
 
   addSection(){
-    const { count } = this.state.education_sections.counter
-    const { components } = this.state.education_sections.components
-    this.setState({ counter: this.state.education_sections.counter += 1 })
-    let edComponents = [... this.state.education_sections.components, <Header/>]
-    for (let i = 0; i < count; i++) {
-      this.setState({
-        components: edComponents
-      })      
-    }
-    // this.setState({ components: edComponents })
-    // console.log(edComponents)
-    console.log(this.state.education_sections)
-    // console.log(this.state.education_sections.counter, this.state.education_sections.components )
+    let addCount = this.state.education_counter
+    this.setState({ 
+      education_counter: addCount += 1
+    })
+    setTimeout(() => {
+      let edButtons = document.querySelectorAll("#edButton")
+      edButtons.forEach( button => { if (edButtons.length > 1)
+        { edButtons[0].remove()} })}, 25);
+  }
+
+  deleteSection(){
+    let negCount = this.state.education_counter
+    this.setState({
+      education_counter: negCount -= 1
+    })
   }
 
   render(){
@@ -72,9 +72,13 @@ class App extends React.Component{
           <Nav/>
         </header>
           <Header onInputChange={this.onInputChange} />
-          <Education onInputChange={this.onInputChange} 
+          {[...Array(this.state.education_counter)].map((component, i) => 
+            <Education onInputChange={this.onInputChange}
+            key={i}
+            deleteSection={this.deleteSection}
             addSection={this.addSection} 
             counter={this.state.educations} />
+          )}
           <WorkExperience onInputChange={this.onInputChange} />
           <Skills onInputChange={this.onInputChange} />
           <div className="center">

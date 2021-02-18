@@ -5,6 +5,7 @@ import { Nav } from "./components/Nav";
 import { WorkExperience } from "./components/WorkExperience";
 import { Education } from "./components/Education";
 import { Skills } from "./components/Skills";
+import { AddButton } from "./components/AddButton";
 
 const api_url = 'http://localhost:3001/api/v1/resumes'
 
@@ -15,6 +16,7 @@ class App extends React.Component{
     this.state = {
       values: { resume: {} },
       education_counter: 1,
+      work_counter: 1
     }
     this.formSubmit = this.formSubmit.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
@@ -46,21 +48,17 @@ class App extends React.Component{
     console.log(this.state.values)
   }
 
-  addSection(){
-    let addCount = this.state.education_counter
-    this.setState({ 
-      education_counter: addCount += 1
+  addSection(counter_name){
+    let addCount = this.state[counter_name]
+    this.setState({ [counter_name]: addCount += 1 }, () => {
+      console.log(this.state)
     })
-    setTimeout(() => {
-      let edButtons = document.querySelectorAll("#edButton")
-      edButtons.forEach( button => { if (edButtons.length > 1)
-        { edButtons[0].remove()} })}, 25);
   }
 
-  deleteSection(){
-    let negCount = this.state.education_counter
-    this.setState({
-      education_counter: negCount -= 1
+  deleteSection(counter_name){
+    let negCount = this.state[counter_name]
+    this.setState({ [counter_name]: negCount -= 1 }, () =>{
+      console.log(this.state)
     })
   }
 
@@ -72,14 +70,31 @@ class App extends React.Component{
           <Nav/>
         </header>
           <Header onInputChange={this.onInputChange} />
-          {[...Array(this.state.education_counter)].map((component, i) => 
+          {this.state.education_counter === 0 ?
+            <div className="section">
+              <div className="sub-section" style={{flexGrow:'.7'}}>
+                <AddButton addSection={this.addSection}
+                 name={'Add Education +'}/> 
+              </div>
+            </div> : null
+            }
+          {[...Array(this.state.education_counter)].map((component, i) =>
             <Education onInputChange={this.onInputChange}
             key={i}
+            index={i + 1}
             deleteSection={this.deleteSection}
             addSection={this.addSection} 
-            counter={this.state.educations} />
+            parentState={this.state.education_counter} />
           )}
-          <WorkExperience onInputChange={this.onInputChange} />
+          {[...Array(this.state.work_counter)].map((component, i) =>
+            <WorkExperience onInputChange={this.onInputChange}
+            key={i}
+            index={i + 1}
+            deleteSection={this.deleteSection}
+            addSection={this.addSection} 
+            parentState={this.state.work_counter}             
+            />
+          )}
           <Skills onInputChange={this.onInputChange} />
           <div className="center">
             <button className='button'

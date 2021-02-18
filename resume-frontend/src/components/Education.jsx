@@ -1,4 +1,6 @@
 import React from "react";
+import { AddButton } from "./AddButton";
+import { DeleteButton } from "./DeleteButton";
 
 export class Education extends React.Component{
 
@@ -15,8 +17,6 @@ export class Education extends React.Component{
       })
     }
     this.handleChange = this.handleChange.bind(this)
-    this.sectionCount = this.sectionCount.bind(this)
-    this.deleteSection = this.deleteSection.bind(this)
   }
 
   handleChange(evt){
@@ -28,16 +28,14 @@ export class Education extends React.Component{
     })
   }
 
-  sectionCount(){
-    this.props.addSection()
-  }
-
-  deleteSection(){
-    this.props.deleteSection()
-  }
-
   render(){
-
+    let button;
+    
+    if (this.props.index === this.props.parentState){
+      button = <AddButton name={'Add Education +'}
+                value={'education_counter'}
+                addSection={this.props.addSection}/>
+    }
     return(
       <div className="section">
         <div className="sub-section">
@@ -105,16 +103,11 @@ export class Education extends React.Component{
             </div>
           </div>
         </div>
-        <button className="skills"
-        style={{marginTop:'20px'}}
-        onClick={this.sectionCount}
-        id='edButton'
-        >Add Education +</button>
-        <button className="skills"
-        style={{marginTop:'20px', marginLeft:'20px'}}
-        onClick={this.deleteSection}
-        id='edButton_delete'
-        >Delete Education +</button>        
+        {button}
+        <DeleteButton
+        name={'Delete Education'}
+        value={'education_counter'}
+        deleteSection={this.props.deleteSection} />
       </div>
     </div>
     )

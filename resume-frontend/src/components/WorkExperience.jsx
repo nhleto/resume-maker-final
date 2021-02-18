@@ -1,4 +1,7 @@
 import React from "react";
+import { DeleteButton } from "./DeleteButton";
+import { AddButton } from "./AddButton";
+
 
 export class WorkExperience extends React.Component{
   constructor(props){
@@ -18,6 +21,13 @@ export class WorkExperience extends React.Component{
     })
   }
   render(){
+    let button;
+    if (this.props.index === this.props.parentState){
+      button = <AddButton name={'Add Work Experience +'}
+                value={'work_counter'}
+                addSection={this.props.addSection}/>
+    }
+
     return(
       <div className="section">
         <div className="sub-section">
@@ -87,8 +97,13 @@ export class WorkExperience extends React.Component{
                   <span className='mui-Bottom'></span>
                 </div>
               </div>
-            </div>  
+            </div>
           </div>
+          {button}
+          <DeleteButton
+          name={'Delete Work Experience'}
+          value={'work_counter'}
+          deleteSection={this.props.deleteSection} />
         </div>
       </div>
     )

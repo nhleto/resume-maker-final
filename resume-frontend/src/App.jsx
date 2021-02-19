@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import React from 'react';
 import { Header } from "./components/Header";
 import { Nav } from "./components/Nav";
@@ -50,16 +50,12 @@ class App extends React.Component{
 
   addSection(counter_name){
     let addCount = this.state[counter_name]
-    this.setState({ [counter_name]: addCount += 1 }, () => {
-      console.log(this.state)
-    })
+    this.setState({ [counter_name]: addCount += 1 })
   }
 
   deleteSection(counter_name){
     let negCount = this.state[counter_name]
-    this.setState({ [counter_name]: negCount -= 1 }, () =>{
-      console.log(this.state)
-    })
+    this.setState({ [counter_name]: negCount -= 1 })
   }
 
   render(){
@@ -69,40 +65,54 @@ class App extends React.Component{
         <header className="App-header">
           <Nav/>
         </header>
-          <Header onInputChange={this.onInputChange} />
-          {this.state.education_counter === 0 ?
-            <div className="section">
-              <div className="sub-section" style={{flexGrow:'.7'}}>
-                <AddButton addSection={this.addSection}
-                 name={'Add Education +'}/> 
-              </div>
-            </div> : null
-            }
-          {[...Array(this.state.education_counter)].map((component, i) =>
-            <Education onInputChange={this.onInputChange}
-            key={i}
-            index={i + 1}
-            deleteSection={this.deleteSection}
-            addSection={this.addSection} 
-            parentState={this.state.education_counter} />
-          )}
-          {[...Array(this.state.work_counter)].map((component, i) =>
-            <WorkExperience onInputChange={this.onInputChange}
-            key={i}
-            index={i + 1}
-            deleteSection={this.deleteSection}
-            addSection={this.addSection} 
-            parentState={this.state.work_counter}             
-            />
-          )}
-          <Skills onInputChange={this.onInputChange} />
-          <div className="center">
-            <button className='button'
-            onClick={this.formSubmit}
-            type='submit'
-            style={{color:'black', marginTop:'10px'}}>
-            Create Resume/Header</button>
+        <div className="columns is-centered" style={{margin:'0'}}>
+          <div className="column is-three-fifths">
+            <Header onInputChange={this.onInputChange} />
+            {this.state.education_counter === 0 ?
+              <div className="section">
+                <div className="sub-section" style={{flexGrow:'.7'}}>
+                  <AddButton addSection={this.addSection}
+                  value={'education_counter'}
+                  name={'Add Education +'}/> 
+                </div>
+              </div> : null
+              }
+            {[...Array(this.state.education_counter)].map((component, i) =>
+              <Education onInputChange={this.onInputChange}
+              key={i}
+              index={i + 1}
+              deleteSection={this.deleteSection}
+              addSection={this.addSection} 
+              parentState={this.state.education_counter} />
+            )}
+            {this.state.work_counter === 0 ?
+              <div className="section">
+                <div className="sub-section" style={{flexGrow:'.7'}}>
+                  <AddButton addSection={this.addSection}
+                  value={'work_counter'}
+                  name={'Add Work Experience +'}/> 
+                </div>
+              </div> : null
+              }          
+            {[...Array(this.state.work_counter)].map((component, i) =>
+              <WorkExperience onInputChange={this.onInputChange}
+              key={i}
+              index={i + 1}
+              deleteSection={this.deleteSection}
+              addSection={this.addSection} 
+              parentState={this.state.work_counter}             
+              />
+            )}
+            <Skills onInputChange={this.onInputChange} />
+            <div className="center">
+              <button className='button'
+              onClick={this.formSubmit}
+              type='submit'
+              style={{color:'black', marginTop:'10px'}}>
+              Create Resume/Header</button>
+            </div>
           </div>
+        </div>
       </div>
     );
   }

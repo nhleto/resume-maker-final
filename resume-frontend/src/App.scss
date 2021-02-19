@@ -13,7 +13,10 @@
  *= require_tree .
  *= require_self
  */
- @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import "bulma/sass/utilities/_all.sass";
+@import "bulma/sass/grid/columns.sass";
+@import "bulma/sass/elements/tag.sass";
 
 *{
   box-sizing: border-box;
@@ -132,33 +135,31 @@ button{
 
 .info{
   margin-top: 20px;
-  flex-grow: .5;
   border: 4px solid #faf0ca;
   padding: 20px;
   border-radius: 5px;
 }
 
 .section{
-  padding: 25px;
-  display: flex;
-  justify-content: center;
+  padding: 1.5rem 1rem;
 }
 
 .top-row, .second-row{
   display: flex;
 }
 
-.control.name, .control.phone{
-  flex-grow: .5;
-}
-
-.control.name{
-  margin-right: 10px;
+#responsibilities_input{
+  color: black;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  max-width: 30rem;
+  max-height: 25rem;
 }
 
 .second-row .control{
   margin-top: 30px;
-  flex-grow: 33.3;
 }
 
 .second-row .control:not(:last-of-type){
@@ -186,7 +187,7 @@ input:focus{
 }
 
 .sub-section{
-  flex-grow: .5;
+  flex-grow: 1; 
 }
 
 .employment-range{

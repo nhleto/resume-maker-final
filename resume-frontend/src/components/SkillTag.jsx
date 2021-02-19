@@ -11,8 +11,13 @@ export class SkillTag extends React.Component{
 
   render(){
     return(
-      <div key={uuid()} className="tag-list">
-        <span key={uuid()} className="tag">{this.state.name}</span>
+      <div className="tag-list">
+        <div className="control">
+          <div className="tags has-addons">
+            <span className="tag is-danger" style={{fontSize:'.9em'}}>{this.state.name}</span>
+            <span className="tag is-delete" style={{fontSize:'.9em'}}></span>
+          </div>
+        </div> 
       </div>
     )
   }

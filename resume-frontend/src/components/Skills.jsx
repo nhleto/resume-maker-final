@@ -11,11 +11,25 @@ export class Skills extends React.Component{
       skill_name: [],
     }
     this.addSkill = this.addSkill.bind(this)
+    this.enterSkill = this.enterSkill.bind(this)
   }
 
-  addSkill(e){
-    // e.stopPropagation()
-    // e.preventDefault()
+  enterSkill(e){
+    if (e.keyCode === 13){
+      const skillVal = document.querySelector('#skill_name')
+      if (skillVal.value !== ''){
+        let newName = [...this.state.skill_name, skillVal.value]
+        this.setState({
+          skill_name: newName
+        }, () => {
+          this.props.onInputChange(this.state);
+        });
+        skillVal.value = ''
+      }
+    }
+  }
+
+  addSkill(){
     const skillVal = document.querySelector('#skill_name')
     if (skillVal.value !== ''){
       let newName = [...this.state.skill_name, skillVal.value]
@@ -38,7 +52,8 @@ export class Skills extends React.Component{
             <button className='skills' onClick={this.addSkill}>
               Add Skills +
             </button>
-            <input id='skill_name' 
+            <input id='skill_name'
+            onKeyUp={this.enterSkill}
             type="text" 
             style={{marginLeft:'20px'}} />
             <span className="mui-Bottom"></span>

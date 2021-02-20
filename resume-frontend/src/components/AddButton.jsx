@@ -8,8 +8,8 @@ export class AddButton extends React.Component{
   }
 
   sendData(){
-    let data = this.props.value
-    this.props.addSection(data)
+    const { value, index, state_key } = this.props
+    this.props.addSection(value, index, state_key)
   }
 
   render(){

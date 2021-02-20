@@ -8,23 +8,21 @@ export class Education extends React.Component {
     super(props)
 
     this.state = {
-      education: ({
-        institution_name: '',
-        major: '',
-        begin_attendance: '',
-        graduation: '',
-        gpa: ''
-      })
+      //   institution_name: '',
+      //   major: '',
+      //   begin_attendance: '',
+      //   graduation: '',
+      //   gpa: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(evt) {
     const value = evt.target.value;
-    let newEducation =  {...this.state.education};
+    let newEducation =  {...this.state[`education_${this.props.index}`]};
     let newest = { ...newEducation, [evt.target.name]: value}
     this.setState({
-      education: newest
+      [`education_${this.props.index}`]: newest
     }, () => {
       this.props.onInputChange(this.state);
     })
@@ -36,6 +34,8 @@ export class Education extends React.Component {
     if (this.props.index + 1 === this.props.parentState.education_counter) {
       button = <AddButton name={'Add Education +'}
         value={'education_counter'}
+        index={this.props.index}
+        state_key={'education_'}
         addSection={this.props.addSection} />
     }
     return (
@@ -123,6 +123,8 @@ export class Education extends React.Component {
           <DeleteButton
             name={'Delete Education'}
             value={'education_counter'}
+            state_key={'education_'}
+            index={this.props.index}
             deleteSection={this.props.deleteSection} />
         </div>
       </div>

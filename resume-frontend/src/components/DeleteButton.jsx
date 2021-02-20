@@ -5,11 +5,12 @@ export class DeleteButton extends React.Component{
     super(props)
 
     this.sendData = this.sendData.bind(this)
+
   }
 
   sendData(){
-    let data = this.props.value
-    this.props.deleteSection(data)
+    const { value, index, state_key } = this.props
+    this.props.deleteSection(value, index, state_key)
   }
 
   render(){

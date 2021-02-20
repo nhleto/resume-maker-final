@@ -14,7 +14,12 @@ class App extends React.Component{
     super(props)
 
     this.state = {
-      values: { resume: {} },
+      resume: {
+        education: {},
+        work_experience: {},
+        headers: {},
+        skill_name: []
+      },
       education_counter: 1,
       work_counter: 1
     }
@@ -36,26 +41,48 @@ class App extends React.Component{
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.state.values)
+        body: JSON.stringify(this.state.resume)
     }).then(response => console.log(response))
   }
 
   onInputChange(data){
-    let newOne = Object.assign(this.state.values.resume, data)
+    let updatedState = Object.assign(this.state.resume, data)
+    // this.setState({ resume: updatedState })
     this.setState({
-      resume: newOne
+      resume: updatedState
+    }, () => {
+      console.log(this.state)
     })
-    console.log(this.state.values)
   }
 
   addSection(counter_name){
     let addCount = this.state[counter_name]
-    this.setState({ [counter_name]: addCount += 1 })
+    let filtered = {...this.state.resume};
+    [...Array(this.state.education_counter)].map((component, i) => 
+      filtered[`education_${i}`] = {}
+    )
+    
+    // let education = Object.entries(this.state.values.resume).find(([k, v]) => k === 'education')
+    // education = education[1]
+    // let newState = Object.assign(this.state.values.resume, {education_1: education})
+    // console.log(newState)
+
+    this.setState({ 
+      [counter_name]: addCount += 1,
+      resume: filtered
+     }, ()=> {
+       console.log(this.state)
+     })
   }
 
   deleteSection(counter_name){
-    let negCount = this.state[counter_name]
-    this.setState({ [counter_name]: negCount -= 1 })
+    let negCount = this.state[counter_name];
+    let filtered = {...this.state.resume}
+
+    console.log(filtered)
+    this.setState({ [counter_name]: negCount -= 1 }, ()=> {
+
+    }) 
   }
 
   render(){
@@ -80,10 +107,10 @@ class App extends React.Component{
             {[...Array(this.state.education_counter)].map((component, i) =>
               <Education onInputChange={this.onInputChange}
               key={i}
-              index={i + 1}
+              index={i}
               deleteSection={this.deleteSection}
               addSection={this.addSection} 
-              parentState={this.state.education_counter} />
+              parentState={this.state} />
             )}
             {this.state.work_counter === 0 ?
               <div className="section">
@@ -97,10 +124,10 @@ class App extends React.Component{
             {[...Array(this.state.work_counter)].map((component, i) =>
               <WorkExperience onInputChange={this.onInputChange}
               key={i}
-              index={i + 1}
+              index={i}
               deleteSection={this.deleteSection}
               addSection={this.addSection} 
-              parentState={this.state.work_counter}             
+              parentState={this.state}             
               />
             )}
             <Skills onInputChange={this.onInputChange} />

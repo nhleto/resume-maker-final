@@ -20,9 +20,11 @@ export class Education extends React.Component {
   }
 
   handleChange(evt) {
-    const value = evt.target.value
+    const value = evt.target.value;
+    let newEducation =  {...this.state.education};
+    let newest = { ...newEducation, [evt.target.name]: value}
     this.setState({
-      education: { ...this.state.education, [evt.target.name]: value }
+      education: newest
     }, () => {
       this.props.onInputChange(this.state);
     })
@@ -31,7 +33,7 @@ export class Education extends React.Component {
   render() {
     let button;
 
-    if (this.props.index === this.props.parentState) {
+    if (this.props.index + 1 === this.props.parentState.education_counter) {
       button = <AddButton name={'Add Education +'}
         value={'education_counter'}
         addSection={this.props.addSection} />

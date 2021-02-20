@@ -20,14 +20,14 @@ export class WorkExperience extends React.Component {
       this.props.onInputChange(this.state);
     })
   }
+
   render() {
     let button;
-    if (this.props.index === this.props.parentState) {
+    if (this.props.index + 1 === this.props.parentState.work_counter) {
       button = <AddButton name={'Add Work Experience +'}
         value={'work_counter'}
         addSection={this.props.addSection} />
     }
-
     return (
       <div className="section">
         <div className="sub-section">

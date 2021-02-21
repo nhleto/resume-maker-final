@@ -15,12 +15,15 @@ class App extends React.Component{
 
     this.state = {
       resume: {
-        // education: {},
+        education: {
+          education_0:{}
+        },
         work_experience: {},
         headers: {},
         skill_name: []
       },
       education_counter: 1,
+      ed_counter: [0],
       work_counter: 1
     }
     this.formSubmit = this.formSubmit.bind(this)
@@ -45,14 +48,16 @@ class App extends React.Component{
     }).then(response => console.log(response))
   }
 
-  onInputChange(data){
-    let updatedState = Object.assign(this.state.resume, data)
+  onInputChange(data, name){
+    console.log(data)
+    let updatedState = Object.assign(this.state.resume.education, data)
+    console.log(updatedState)
     // this.setState({ resume: updatedState })
-    this.setState({
-      resume: updatedState
-    }, () => {
-      console.log(this.state)
-    })
+    // this.setState({
+    //   resume: updatedState
+    // }, () => {
+    //   console.log(this.state)
+    // })
   }
 
   addSection(counter_name, index, state_key){
@@ -63,24 +68,33 @@ class App extends React.Component{
     // [...Array(this.state.education_counter)].map((component, i) => 
     //   filtered[`education_${i}`] = {...this.state.resume[`education_${i}`]}
     // )
-    
+    let ed_counter = [];
+    for (let i = 0; i < this.state.education_counter + 1; i++){
+      ed_counter.push(i)
+    }
+    // this.setState({ education_counter: ed_counter })
     this.setState({ 
       [counter_name]: addCount += 1,
-      // resume: filtered
+      ed_counter: ed_counter
      }, ()=> {
        console.log(this.state)
      })
   }
 
-  deleteSection(counter_name, index, state_key){
-    console.log(counter_name, index, state_key)
+  deleteSection(counter_name, index, state_key, target){
     let deleteKey = state_key.concat(index)
     let currentState = {...this.state}
     delete currentState.resume[deleteKey]
-    // console.log(currentState)
     let negCount = this.state[counter_name];
+
+    let _edCounter = this.state.ed_counter;
+    let index2 = _edCounter.indexOf(index)
+    _edCounter.splice(index2, 1)
+    console.log(_edCounter)
+
     this.setState({ 
       [counter_name]: negCount -= 1,
+      ed_counter: _edCounter,
       resume: currentState.resume
      }, ()=>{
        console.log(this.state.resume)
@@ -88,19 +102,6 @@ class App extends React.Component{
   }
 
   render(){
-
-    let education_children = [];
-    for (let i = 0; i < this.state.education_counter; i += 1) {
-      education_children.push(
-        <Education onInputChange={this.onInputChange}
-        name={`education_${i}`}
-        key={i}
-        index={i}
-        deleteSection={this.deleteSection}
-        addSection={this.addSection}
-        parentState={this.state} />
-      );
-    };
 
     return (
       <div className="app">
@@ -119,7 +120,15 @@ class App extends React.Component{
                 </div>
               </div> : null
               }
-            { education_children }
+            {this.state.ed_counter.map((comp, i) => 
+              <Education onInputChange={this.onInputChange}
+              name={`education_${i}`}
+              key={i}
+              index={i}
+              deleteSection={this.deleteSection}
+              addSection={this.addSection}
+              parentState={this.state} />
+            )}
             {this.state.work_counter === 0 ?
               <div className="section">
                 <div className="sub-section" style={{flexGrow:'.7'}}>

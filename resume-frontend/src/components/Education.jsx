@@ -8,11 +8,11 @@ export class Education extends React.Component {
     super(props)
 
     this.state = {
-      //   institution_name: '',
-      //   major: '',
-      //   begin_attendance: '',
-      //   graduation: '',
-      //   gpa: ''
+        // institution_name: '',
+        // major: '',
+        // begin_attendance: '',
+        // graduation: '',
+        // gpa: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -24,13 +24,13 @@ export class Education extends React.Component {
     this.setState({
       [`education_${this.props.index}`]: newest
     }, () => {
-      this.props.onInputChange(this.state);
+      this.props.onInputChange(this.state, 'education');
     })
   }
 
   render() {
     let button;
-
+    let edCounter = parseInt(this.props.parentState.education_counter)
     if (this.props.index + 1 === this.props.parentState.education_counter) {
       button = <AddButton name={'Add Education +'}
         value={'education_counter'}
@@ -125,6 +125,7 @@ export class Education extends React.Component {
             value={'education_counter'}
             state_key={'education_'}
             index={this.props.index}
+            target={this}
             deleteSection={this.props.deleteSection} />
         </div>
       </div>

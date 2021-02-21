@@ -9,8 +9,8 @@ export class DeleteButton extends React.Component{
   }
 
   sendData(){
-    const { value, index, state_key } = this.props
-    this.props.deleteSection(value, index, state_key)
+    const { value, index, state_key, target } = this.props
+    this.props.deleteSection(value, index, state_key, target)
   }
 
   render(){

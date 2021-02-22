@@ -19,20 +19,20 @@ export class Education extends React.Component {
 
   handleChange(evt) {
     const value = evt.target.value;
-    let newEducation =  {...this.state[`education_${this.props.index}`]};
-    let newest = { ...newEducation, [evt.target.name]: value}
+    let newEducation =  {...this.state}
+    let newest = { ...newEducation[[`education_${this.props.index}`]], [evt.target.name]: value}
     this.setState({
       [`education_${this.props.index}`]: newest
     }, () => {
-      this.props.onInputChange(this.state, 'education');
+      this.props.onInputChange(this.state, 'education', this.props.index);
     })
   }
 
   render() {
     let button;
-    let edCounter = parseInt(this.props.parentState.education_counter)
-    if (this.props.index + 1 === this.props.parentState.education_counter) {
-      button = <AddButton name={'Add Education +'}
+    if (this.props.index === this.props.keyLength ) {
+      button = <AddButton
+        name={'Add Education +'}
         value={'education_counter'}
         index={this.props.index}
         state_key={'education_'}

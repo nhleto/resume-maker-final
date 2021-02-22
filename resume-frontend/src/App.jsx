@@ -14,17 +14,10 @@ class App extends React.Component{
     super(props)
 
     this.state = {
-      resume: {
-        education: {
-          education_0:{}
-        },
-        work_experience: {},
-        headers: {},
-        skill_name: []
-      },
-      education_counter: 1,
-      ed_counter: [0],
-      work_counter: 1
+      education: [],
+      work_experience: [],
+      headers: [],
+      skill_name: []
     }
     this.formSubmit = this.formSubmit.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
@@ -48,54 +41,43 @@ class App extends React.Component{
     }).then(response => console.log(response))
   }
 
-  onInputChange(data, name){
-    console.log(data)
-    let updatedState = Object.assign(this.state.resume.education, data)
-    console.log(updatedState)
-    // this.setState({ resume: updatedState })
-    // this.setState({
-    //   resume: updatedState
-    // }, () => {
-    //   console.log(this.state)
-    // })
+  onInputChange(data, name, index){
+    let prevState = [...this.state.education]
+    prevState.push(data)
+    this.setState({
+      education: prevState.slice(-1)
+    }, () => {
+      console.log(this.state)
+    })
   }
 
   addSection(counter_name, index, state_key){
     console.log(counter_name, index, state_key)
-    // let addKey = state_key
-    let addCount = this.state[counter_name]
-    // let filtered = {...this.state.resume};
-    // [...Array(this.state.education_counter)].map((component, i) => 
-    //   filtered[`education_${i}`] = {...this.state.resume[`education_${i}`]}
-    // )
-    let ed_counter = [];
-    for (let i = 0; i < this.state.education_counter + 1; i++){
-      ed_counter.push(i)
+    let prevState = [...this.state.education]
+    if (index === undefined){
+      prevState.push({['education_0']: null})
+      this.setState({
+        education: prevState
+       }, ()=> {
+         console.log(this.state)
+       })
+    } else {
+      prevState.push({[state_key.concat(index + 1)]: null})
+      state_key.concat(index)
+      this.setState({
+        education: prevState
+       }, ()=> {
+         console.log(this.state)
+       })
     }
-    // this.setState({ education_counter: ed_counter })
-    this.setState({ 
-      [counter_name]: addCount += 1,
-      ed_counter: ed_counter
-     }, ()=> {
-       console.log(this.state)
-     })
   }
 
   deleteSection(counter_name, index, state_key, target){
-    let deleteKey = state_key.concat(index)
-    let currentState = {...this.state}
-    delete currentState.resume[deleteKey]
-    let negCount = this.state[counter_name];
-
-    let _edCounter = this.state.ed_counter;
-    let index2 = _edCounter.indexOf(index)
-    _edCounter.splice(index2, 1)
-    console.log(_edCounter)
+    let array = [...this.state.education];
+    let newState = array.splice(index, 1)
 
     this.setState({ 
-      [counter_name]: negCount -= 1,
-      ed_counter: _edCounter,
-      resume: currentState.resume
+      education: newState
      }, ()=>{
        console.log(this.state.resume)
      })
@@ -111,7 +93,7 @@ class App extends React.Component{
         <div className="columns is-centered" style={{margin:'0'}}>
           <div className="column is-three-fifths">
             <Header onInputChange={this.onInputChange} />
-            {this.state.education_counter === 0 ?
+            {this.state.education.length === 0 ?
               <div className="section">
                 <div className="sub-section" style={{flexGrow:'.7'}}>
                   <AddButton addSection={this.addSection}
@@ -120,11 +102,12 @@ class App extends React.Component{
                 </div>
               </div> : null
               }
-            {this.state.ed_counter.map((comp, i) => 
+            {this.state.education.map((comp, i) => 
               <Education onInputChange={this.onInputChange}
               name={`education_${i}`}
               key={i}
-              index={i}
+              index={i + 1}
+              keyLength={this.state.education.length}
               deleteSection={this.deleteSection}
               addSection={this.addSection}
               parentState={this.state} />

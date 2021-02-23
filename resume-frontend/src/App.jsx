@@ -5,7 +5,6 @@ import { Nav } from "./components/Nav";
 import { WorkExperience } from "./components/WorkExperience";
 import { Education } from "./components/Education/Education";
 import { Skills } from "./components/Skills";
-import { AddButton } from "./components/AddButton";
 
 const api_url = 'http://localhost:3001/api/v1/resumes'
 
@@ -18,7 +17,6 @@ class App extends React.Component{
       work_experience: [],
       header: [],
       skill_name: [],
-      education_counter: 0
     }
     this.formSubmit = this.formSubmit.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
@@ -47,12 +45,6 @@ class App extends React.Component{
         this.setState({ skill_name: [...skills, data] })
         break;
     }
-    // let state = [...this.state.education]
-    // this.setState({
-    //   education: [...state, data]
-    // }, ()=> {
-    //   console.log(this.state)
-    // })
   }
 
   async submitter(){
@@ -92,8 +84,8 @@ class App extends React.Component{
   }
 
   addSection(counter_name, index, state_key){
-    let counter = this.state.education_counter
-    this.setState({ education_counter:  counter + 1})
+    // let counter = this.state.education_counter
+    // this.setState({ education_counter:  counter + 1})
   }
 
   deleteSection(counter_name, index, state_key, target){
@@ -117,44 +109,20 @@ class App extends React.Component{
         <div className="columns is-centered" style={{margin:'0'}}>
           <div className="column is-three-fifths">
             <Header onInputChange={this.onInputChange} />
+
             <Education onInputChange={this.onInputChange}
             name={`education`}
             onSubmit={this.formSubmit}
-            // key={i}
-            // index={i + 1}
-            // keyLength={this.state.education.length}
             deleteSection={this.deleteSection}
             addSection={this.addSection}
             parentState={this.state} />
-            {/* {this.state.education.map(component => 
-              <Education
-              key={component.id}
-              onInputChange={this.onInputChange}
-              name={`education`}
-              onSubmit={this.formSubmit}
-              deleteSection={this.deleteSection}
-              addSection={this.addSection}
-              parentState={this.state} />            
-            )} */}
-            {/* {this.state.work_counter === 0 ?
-              <div className="section">
-                <div className="sub-section" style={{flexGrow:'.7'}}>
-                  <AddButton addSection={this.addSection}
-                  value={'work_counter'}
-                  name={'Add Work Experience +'}/> 
-                </div>
-              </div> : null
-              }           */}
-            {/* {[...Array(this.state.work_counter)].map((component, i) => */}
-              <WorkExperience 
-              onInputChange={this.onInputChange}
-              // key={i}
-              // index={i}
-              deleteSection={this.deleteSection}
-              addSection={this.addSection} 
-              parentState={this.state}             
-              />
-            {/* )} */}
+
+            <WorkExperience 
+            onInputChange={this.onInputChange}
+            deleteSection={this.deleteSection}
+            addSection={this.addSection} 
+            parentState={this.state} />
+
             <Skills onInputChange={this.onInputChange} />
             <div className="center">
               <button className='button'

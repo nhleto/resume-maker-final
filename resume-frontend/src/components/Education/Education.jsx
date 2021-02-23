@@ -1,9 +1,10 @@
 import React from "react";
-import { AddButton } from "../AddButton";
-import { DeleteButton } from "../DeleteButton";
+import { AddButton } from "../Buttons/AddButton";
+import { DeleteButton } from "../Buttons/DeleteButton";
 import shortid from 'shortid';
-import { EducationSave } from "./EducationSave";
+import { EducationSave } from "./EducationSaved";
 import { EducationForm } from "./EducationForm";
+import SaveButton from "../Buttons/SaveButton";
 
 export class Education extends React.Component {
 
@@ -20,6 +21,7 @@ export class Education extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.formSubmit = this.formSubmit.bind(this)
+    this.deleteSection =this.deleteSection.bind(this)
   }
 
   handleChange(evt) {
@@ -48,36 +50,46 @@ export class Education extends React.Component {
     }))
   }
 
+  deleteSection(){
+    // this.props.onSubmi
+  }
+
   render() {
     let button;
-      button = <AddButton
-        name={'Add Education +'}
-        value={'education_counter'}
-        index={this.props.index}
-        state_key={'education_'}
-        addSection={this.props.addSection} />
+    let section;
+    // if (this.state.saved === true){
+    //   button = <DeleteButton
+    //   name={'Delete Education'}
+    //   deleteSection={this.deleteSection} />
+    // } else {
+    //   button = <SaveButton
+    //   saveData={this.formSubmit} />
+    // }
+    section = <EducationForm onInputChange={this.handleChange} />
+    button = <SaveButton
+    saveData={this.formSubmit} />
+    // button = <AddButton
+    //   name={'Add Education +'}
+    //   value={'education_counter'}
+    //   index={this.props.index}
+    //   state_key={'education_'}
+    //   addSection={this.props.addSection} />
     return (
       <div className="section">
         <div className="sub-section">
           <h2 className="title">Education</h2>
           <div className="info">
-            { this.state.save === true ? 
-            <EducationSave /> : 
-            <EducationForm /> }
+          {section}
           </div>
-          <button className="skills"
-          style={{marginRight:'20px', marginTop:'20px'}}
-          onClick={this.formSubmit}
-          >Save Section</button>
-          {/* {button}
-          <DeleteButton
-            name={'Delete Education'}
-            value={'education_counter'}
-            state_key={'education_'}
-            index={this.props.index}
-            target={this}
-            deleteSection={this.props.deleteSection} /> */}
+          {button}
         </div>
+        {this.props.parentState.education.map(component => 
+          <EducationSave
+          key={component.id}
+          parentState={component}
+          onInputChange={this.handleChange}
+          />
+        )}
       </div>
     )
   }

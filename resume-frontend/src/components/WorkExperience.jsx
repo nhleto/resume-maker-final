@@ -1,6 +1,6 @@
 import React from "react";
-import { DeleteButton } from "./DeleteButton";
-import { AddButton } from "./AddButton";
+import { DeleteButton } from "./Buttons/DeleteButton";
+import { AddButton } from "./Buttons/AddButton";
 
 
 export class WorkExperience extends React.Component {

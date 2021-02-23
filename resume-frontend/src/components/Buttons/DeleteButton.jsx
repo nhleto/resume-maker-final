@@ -5,7 +5,6 @@ export class DeleteButton extends React.Component{
     super(props)
 
     this.sendData = this.sendData.bind(this)
-
   }
 
   sendData(){

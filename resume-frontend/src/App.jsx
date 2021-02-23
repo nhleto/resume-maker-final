@@ -3,7 +3,7 @@ import React from 'react';
 import { Header } from "./components/Header";
 import { Nav } from "./components/Nav";
 import { WorkExperience } from "./components/WorkExperience";
-import { Education } from "./components/Education";
+import { Education } from "./components/Education/Education";
 import { Skills } from "./components/Skills";
 import { AddButton } from "./components/AddButton";
 
@@ -16,8 +16,9 @@ class App extends React.Component{
     this.state = {
       education: [],
       work_experience: [],
-      headers: [],
-      skill_name: []
+      header: [],
+      skill_name: [],
+      education_counter: 0
     }
     this.formSubmit = this.formSubmit.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
@@ -25,9 +26,33 @@ class App extends React.Component{
     this.deleteSection = this.deleteSection.bind(this)
   }
 
-  formSubmit(e){
-    e.preventDefault()
-    this.submitter()
+  formSubmit(data){
+    console.log(data)
+    let keys = Object.keys(data).join()
+    switch (true) {
+      case /gpa/.test(keys):
+        let eduState = [...this.state.education]
+        this.setState({ education: [...eduState, data] })
+        break;
+      case /responsibilities/.test(keys):
+        let workState = [...this.state.work_experience];
+        this.setState({ work_experience: [...workState, data] })
+        break;
+      case /email/.test(keys):
+        let headerState = [...this.state.header]
+        this.setState({ header: [...headerState, data] })
+        break;
+      default:
+        let skills = [...this.state.skill_name]
+        this.setState({ skill_name: [...skills, data] })
+        break;
+    }
+    // let state = [...this.state.education]
+    // this.setState({
+    //   education: [...state, data]
+    // }, ()=> {
+    //   console.log(this.state)
+    // })
   }
 
   async submitter(){
@@ -43,33 +68,32 @@ class App extends React.Component{
 
   onInputChange(data, name, index){
     let prevState = [...this.state.education]
+    // console.log(prevState, data)
     prevState.push(data)
-    this.setState({
-      education: prevState.slice(-1)
-    }, () => {
-      console.log(this.state)
-    })
+    // console.log(Object.keys(data))
+    // console.log(prevState, data)
+    let array = []
+    prevState.forEach(element => {
+      if (Object.keys(element).join() === Object.keys(data).join()){
+        array.push(data)
+        this.setState({
+          education: array
+        }, () => {
+          console.log(this.state)
+        })        
+      }
+    });
+
+    // this.setState({
+    //   education: prevState
+    // }, () => {
+    //   console.log(this.state)
+    // })
   }
 
   addSection(counter_name, index, state_key){
-    console.log(counter_name, index, state_key)
-    let prevState = [...this.state.education]
-    if (index === undefined){
-      prevState.push({['education_0']: null})
-      this.setState({
-        education: prevState
-       }, ()=> {
-         console.log(this.state)
-       })
-    } else {
-      prevState.push({[state_key.concat(index + 1)]: null})
-      state_key.concat(index)
-      this.setState({
-        education: prevState
-       }, ()=> {
-         console.log(this.state)
-       })
-    }
+    let counter = this.state.education_counter
+    this.setState({ education_counter:  counter + 1})
   }
 
   deleteSection(counter_name, index, state_key, target){
@@ -93,26 +117,26 @@ class App extends React.Component{
         <div className="columns is-centered" style={{margin:'0'}}>
           <div className="column is-three-fifths">
             <Header onInputChange={this.onInputChange} />
-            {this.state.education.length === 0 ?
-              <div className="section">
-                <div className="sub-section" style={{flexGrow:'.7'}}>
-                  <AddButton addSection={this.addSection}
-                  value={'education_counter'}
-                  name={'Add Education +'}/>
-                </div>
-              </div> : null
-              }
-            {this.state.education.map((comp, i) => 
-              <Education onInputChange={this.onInputChange}
-              name={`education_${i}`}
-              key={i}
-              index={i + 1}
-              keyLength={this.state.education.length}
+            <Education onInputChange={this.onInputChange}
+            name={`education`}
+            onSubmit={this.formSubmit}
+            // key={i}
+            // index={i + 1}
+            // keyLength={this.state.education.length}
+            deleteSection={this.deleteSection}
+            addSection={this.addSection}
+            parentState={this.state} />
+            {/* {this.state.education.map(component => 
+              <Education
+              key={component.id}
+              onInputChange={this.onInputChange}
+              name={`education`}
+              onSubmit={this.formSubmit}
               deleteSection={this.deleteSection}
               addSection={this.addSection}
-              parentState={this.state} />
-            )}
-            {this.state.work_counter === 0 ?
+              parentState={this.state} />            
+            )} */}
+            {/* {this.state.work_counter === 0 ?
               <div className="section">
                 <div className="sub-section" style={{flexGrow:'.7'}}>
                   <AddButton addSection={this.addSection}
@@ -120,16 +144,17 @@ class App extends React.Component{
                   name={'Add Work Experience +'}/> 
                 </div>
               </div> : null
-              }          
-            {[...Array(this.state.work_counter)].map((component, i) =>
-              <WorkExperience onInputChange={this.onInputChange}
-              key={i}
-              index={i}
+              }           */}
+            {/* {[...Array(this.state.work_counter)].map((component, i) => */}
+              <WorkExperience 
+              onInputChange={this.onInputChange}
+              // key={i}
+              // index={i}
               deleteSection={this.deleteSection}
               addSection={this.addSection} 
               parentState={this.state}             
               />
-            )}
+            {/* )} */}
             <Skills onInputChange={this.onInputChange} />
             <div className="center">
               <button className='button'

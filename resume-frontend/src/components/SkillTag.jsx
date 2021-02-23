@@ -1,5 +1,4 @@
 import React from "react";
-import uuid from 'react-uuid'
 
 export class SkillTag extends React.Component{
   constructor(props){

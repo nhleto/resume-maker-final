@@ -15,7 +15,7 @@ export class AddButton extends React.Component{
   render(){
     return(
         <button className="skills"
-        style={{marginTop:'20px', marginRight:'20px'}}
+        style={{marginTop:'20px', marginRight:'20px', color:'black'}}
         onClick={this.sendData}
         id='edButton'>{this.props.name}</button>
     )

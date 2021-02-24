@@ -2,7 +2,7 @@ import React from "react";
 import { AddButton } from "../Buttons/AddButton";
 import { DeleteButton } from "../Buttons/DeleteButton";
 import shortid from 'shortid';
-import { EducationSave } from "./EducationSaved";
+import { EducationSaved } from "./EducationSaved";
 import { EducationForm } from "./EducationForm";
 import SaveButton from "../Buttons/SaveButton";
 
@@ -25,7 +25,6 @@ export class Education extends React.Component {
   }
 
   handleChange(evt) {
-    const value = evt.target.value;
     this.setState({
       [evt.target.name]: evt.target.value
     })
@@ -65,9 +64,8 @@ export class Education extends React.Component {
     //   button = <SaveButton
     //   saveData={this.formSubmit} />
     // }
-    section = <EducationForm onInputChange={this.handleChange} />
-    button = <SaveButton
-    saveData={this.formSubmit} />
+    section = <EducationForm onChange={this.handleChange} parentState={this.state} parentComponent={this.props.component} />
+    // this.state.saved === true ? button = null : button = <SaveButton saveData={this.formSubmit} />
     // button = <AddButton
     //   name={'Add Education +'}
     //   value={'education_counter'}
@@ -78,18 +76,17 @@ export class Education extends React.Component {
       <div className="section">
         <div className="sub-section">
           <h2 className="title">Education</h2>
-          <div className="info">
           {section}
-          </div>
-          {button}
+          <SaveButton saveData={this.formSubmit} />
         </div>
-        {this.props.parentState.education.map(component => 
-          <EducationSave
-          key={component.id}
-          parentState={component}
-          onInputChange={this.handleChange}
-          />
-        )}
+          {this.props.parentState.education.map(component => 
+            <EducationSaved
+            key={component.id}
+            parentState={this.state}
+            deleteSection={this.props.deleteSection}
+            component={component}
+            onSubmit={this.props.onSubmit} />
+          )}
       </div>
     )
   }

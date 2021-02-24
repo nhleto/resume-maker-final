@@ -5,6 +5,9 @@ import { Nav } from "./components/Nav";
 import { WorkExperience } from "./components/WorkExperience";
 import { Education } from "./components/Education/Education";
 import { Skills } from "./components/Skills";
+import { EducationSaved } from "./components/Education/EducationSaved";
+import shortid from 'shortid';
+
 
 const api_url = 'http://localhost:3001/api/v1/resumes'
 
@@ -22,6 +25,7 @@ class App extends React.Component{
     this.onInputChange = this.onInputChange.bind(this)
     this.addSection = this.addSection.bind(this)
     this.deleteSection = this.deleteSection.bind(this)
+    this.grabState = this.grabState.bind(this)
   }
 
   formSubmit(data){
@@ -30,7 +34,7 @@ class App extends React.Component{
     switch (true) {
       case /gpa/.test(keys):
         let eduState = [...this.state.education]
-        this.setState({ education: [...eduState, data] })
+        this.setState({ education: [data, ...eduState] })
         break;
       case /responsibilities/.test(keys):
         let workState = [...this.state.work_experience];
@@ -47,6 +51,10 @@ class App extends React.Component{
     }
   }
 
+  grabState(){
+    document.querySelector('.button').click()
+  }
+
   async submitter(){
     console.log(this.state)
     await fetch(api_url, {
@@ -58,29 +66,9 @@ class App extends React.Component{
     }).then(response => console.log(response))
   }
 
-  onInputChange(data, name, index){
-    let prevState = [...this.state.education]
-    // console.log(prevState, data)
-    prevState.push(data)
-    // console.log(Object.keys(data))
-    // console.log(prevState, data)
-    let array = []
-    prevState.forEach(element => {
-      if (Object.keys(element).join() === Object.keys(data).join()){
-        array.push(data)
-        this.setState({
-          education: array
-        }, () => {
-          console.log(this.state)
-        })        
-      }
-    });
-
-    // this.setState({
-    //   education: prevState
-    // }, () => {
-    //   console.log(this.state)
-    // })
+  onInputChange(data){
+    // let state = [...this.state.education, data]
+    // this.setState({ education: state })
   }
 
   addSection(counter_name, index, state_key){
@@ -88,15 +76,14 @@ class App extends React.Component{
     // this.setState({ education_counter:  counter + 1})
   }
 
-  deleteSection(counter_name, index, state_key, target){
-    let array = [...this.state.education];
-    let newState = array.splice(index, 1)
-
-    this.setState({ 
-      education: newState
-     }, ()=>{
-       console.log(this.state.resume)
-     })
+  deleteSection(data, section_name){
+    let currentState = [...this.state[section_name]]
+    currentState.map((component, i) => {
+      if (component.id === data.id){
+        currentState.splice(i, 1)
+        this.setState({ [section_name]: currentState })
+      }
+    })
   }
 
   render(){
@@ -110,7 +97,8 @@ class App extends React.Component{
           <div className="column is-three-fifths">
             <Header onInputChange={this.onInputChange} />
 
-            <Education onInputChange={this.onInputChange}
+            <Education
+            onInputChange={this.onInputChange}
             name={`education`}
             onSubmit={this.formSubmit}
             deleteSection={this.deleteSection}
@@ -126,7 +114,7 @@ class App extends React.Component{
             <Skills onInputChange={this.onInputChange} />
             <div className="center">
               <button className='button'
-              onClick={this.formSubmit}
+              onClick={this.grabState}
               type='submit'
               style={{color:'black', marginTop:'10px'}}>
               Create Resume/Header</button>

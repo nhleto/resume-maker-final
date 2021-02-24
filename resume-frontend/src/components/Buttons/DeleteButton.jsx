@@ -8,14 +8,13 @@ export class DeleteButton extends React.Component{
   }
 
   sendData(){
-    const { value, index, state_key, target } = this.props
-    this.props.deleteSection(value, index, state_key, target)
+    this.props.deleteSection(this.props.component, 'education')
   }
 
   render(){
     return(
-      <button className="skills"
-      style={{marginTop:'20px'}}
+      <button className="button"
+      style={{marginTop:'20px', color:'black'}}
       onClick={this.sendData}
       id='edButton_delete'
       >{this.props.name}</button>

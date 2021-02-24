@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
-import { SaveButton } from "../Buttons/SaveButton";
-import {DeleteButton} from '../Buttons/DeleteButton'
+import EditButton from "../Buttons/EditButton";
+import { DeleteButton } from '../Buttons/DeleteButton'
 import shortid from "shortid";
+import { EducationForm } from "./EducationForm";
+import { EditEducation } from "./EditEducation";
 
 export class EducationSaved extends Component {
   constructor(props){
     super(props)
     this.state = {
-      saved: false,
+      saved: true,
       institution_name: '',
       major: '',
       begin_attendance: '',
       graduation: '',
       gpa: ''
     }
+    this.editData = this.editData.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.formSubmit = this.formSubmit.bind(this)
   }
@@ -38,18 +41,17 @@ export class EducationSaved extends Component {
     }))
   }
 
+  editData(){
+    this.setState({ saved: false })
+  }
+
   render() {
-    let button;
-    this.state.saved === true ? button = null : button = <SaveButton saveData={this.formSubmit} />
-    let defValue;
-    if (this.props.parentState){
-      defValue = this.props.parentState
-    } else {
-      defValue = ''
-    }
+
     return (
       <div className="sub-section">
-        <div className="info">
+        {this.state.saved === false ? <EducationForm parentState={this.props.component} /> : 
+        <EditEducation component={this.props.component} editData={this.editData} />}
+        {/* <div className="info">
           <div className="columns">
           <div className="column">
             <div className="columns">
@@ -88,9 +90,16 @@ export class EducationSaved extends Component {
             </div>
           </div>
         </div>
-      </div>
-      <DeleteButton component={this.props.component} deleteSection={this.props.deleteSection} name={'Delete Education'} />
-     </div>
+      </div> */}
+      <DeleteButton
+      component={this.props.component}
+      deleteSection={this.props.deleteSection}
+      name={'Delete Education'} />
+      <EditButton
+      name={'Edit Education'}
+      editData={this.editData}
+      component={this.props.component} />
+     </div> 
     )
   }
 }

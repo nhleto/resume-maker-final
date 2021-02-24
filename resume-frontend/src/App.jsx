@@ -5,8 +5,6 @@ import { Nav } from "./components/Nav";
 import { WorkExperience } from "./components/WorkExperience";
 import { Education } from "./components/Education/Education";
 import { Skills } from "./components/Skills";
-import { EducationSaved } from "./components/Education/EducationSaved";
-import shortid from 'shortid';
 
 
 const api_url = 'http://localhost:3001/api/v1/resumes'
@@ -22,10 +20,8 @@ class App extends React.Component{
       skill_name: [],
     }
     this.formSubmit = this.formSubmit.bind(this)
-    this.onInputChange = this.onInputChange.bind(this)
-    this.addSection = this.addSection.bind(this)
     this.deleteSection = this.deleteSection.bind(this)
-    this.grabState = this.grabState.bind(this)
+    this.editSection = this.editSection.bind(this)
   }
 
   formSubmit(data){
@@ -51,10 +47,6 @@ class App extends React.Component{
     }
   }
 
-  grabState(){
-    document.querySelector('.button').click()
-  }
-
   async submitter(){
     console.log(this.state)
     await fetch(api_url, {
@@ -66,14 +58,8 @@ class App extends React.Component{
     }).then(response => console.log(response))
   }
 
-  onInputChange(data){
-    // let state = [...this.state.education, data]
-    // this.setState({ education: state })
-  }
-
-  addSection(counter_name, index, state_key){
-    // let counter = this.state.education_counter
-    // this.setState({ education_counter:  counter + 1})
+  editSection(data){
+    console.log(data)
   }
 
   deleteSection(data, section_name){
@@ -102,8 +88,8 @@ class App extends React.Component{
             name={`education`}
             onSubmit={this.formSubmit}
             deleteSection={this.deleteSection}
-            addSection={this.addSection}
-            parentState={this.state} />
+            parentState={this.state}
+            editSection={this.editSection} />
 
             <WorkExperience 
             onInputChange={this.onInputChange}

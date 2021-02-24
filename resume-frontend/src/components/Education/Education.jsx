@@ -21,7 +21,6 @@ export class Education extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.formSubmit = this.formSubmit.bind(this)
-    this.deleteSection =this.deleteSection.bind(this)
   }
 
   handleChange(evt) {
@@ -49,10 +48,6 @@ export class Education extends React.Component {
     }))
   }
 
-  deleteSection(){
-    // this.props.onSubmi
-  }
-
   render() {
     let button;
     let section;
@@ -64,7 +59,7 @@ export class Education extends React.Component {
     //   button = <SaveButton
     //   saveData={this.formSubmit} />
     // }
-    section = <EducationForm onChange={this.handleChange} parentState={this.state} parentComponent={this.props.component} />
+    section = <EducationForm onChange={this.handleChange} parentState={this.state} />
     // this.state.saved === true ? button = null : button = <SaveButton saveData={this.formSubmit} />
     // button = <AddButton
     //   name={'Add Education +'}
@@ -85,7 +80,8 @@ export class Education extends React.Component {
             parentState={this.state}
             deleteSection={this.props.deleteSection}
             component={component}
-            onSubmit={this.props.onSubmit} />
+            onSubmit={this.props.onSubmit}
+            editSection={this.props.editSection} />
           )}
       </div>
     )

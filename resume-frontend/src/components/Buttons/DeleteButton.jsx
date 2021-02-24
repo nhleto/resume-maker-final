@@ -14,7 +14,7 @@ export class DeleteButton extends React.Component{
   render(){
     return(
       <button className="button"
-      style={{marginTop:'20px', color:'black'}}
+      style={{marginTop:'20px',marginRight:'20px', color:'black'}}
       onClick={this.sendData}
       id='edButton_delete'
       >{this.props.name}</button>

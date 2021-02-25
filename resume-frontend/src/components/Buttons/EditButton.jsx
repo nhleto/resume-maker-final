@@ -7,12 +7,13 @@ export class EditButton extends Component {
   }
   
   editData(){
-    this.props.editData(this.props.component)
+    const {component, state, type} = this.props
+    this.props.editSection(component, state, type)
   }
   render() {
     return (
       <button className='button'
-      onClick={this.props.editData}
+      onClick={this.editData}
       type='submit'
       style={{color:'black', marginTop:'10px', marginRight:'20px'}}>
       {this.props.name}</button>

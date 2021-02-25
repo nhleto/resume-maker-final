@@ -1,9 +1,6 @@
 import React from "react";
-import { AddButton } from "../Buttons/AddButton";
-import { DeleteButton } from "../Buttons/DeleteButton";
 import shortid from 'shortid';
 import { EducationSaved } from "./EducationSaved";
-import { EducationForm } from "./EducationForm";
 import SaveButton from "../Buttons/SaveButton";
 
 export class Education extends React.Component {
@@ -40,39 +37,100 @@ export class Education extends React.Component {
       gpa: this.state.gpa
     }, this.setState({
       saved: true,
-      institution_name: '',
-      major: '',
-      begin_attendance: '',
-      graduation: '',
-      gpa: ''
+      // institution_name: '',
+      // major: '',
+      // begin_attendance: '',
+      // graduation: '',
+      // gpa: ''
     }))
   }
 
   render() {
-    let button;
-    let section;
-    // if (this.state.saved === true){
-    //   button = <DeleteButton
-    //   name={'Delete Education'}
-    //   deleteSection={this.deleteSection} />
-    // } else {
-    //   button = <SaveButton
-    //   saveData={this.formSubmit} />
-    // }
-    section = <EducationForm onChange={this.handleChange} parentState={this.state} />
-    // this.state.saved === true ? button = null : button = <SaveButton saveData={this.formSubmit} />
-    // button = <AddButton
-    //   name={'Add Education +'}
-    //   value={'education_counter'}
-    //   index={this.props.index}
-    //   state_key={'education_'}
-    //   addSection={this.props.addSection} />
+
     return (
       <div className="section">
         <div className="sub-section">
           <h2 className="title">Education</h2>
-          {section}
-          <SaveButton saveData={this.formSubmit} />
+          <div className="sub-section">
+            <div className="info">
+              <div className="columns">
+              <div className="column">
+                <div className="columns">
+                  <div className="column">
+                    <div className="control name">
+                      <label className='label'>Institution Name</label>
+                      <input type="text"
+                        id='institution Name'
+                        onChange={this.handleChange}
+                        name='institution_name'
+                        className='input'
+                        autoComplete='off'
+                        placeholder='Name of Institution' />
+                      <span className='mui-Bottom'></span>
+                    </div>
+                  </div>
+                  <div className="column">
+                    <div className="control phone">
+                      <label className='label'>Area of Study</label>
+                      <input type="text"
+                        id='major_input'
+                        onChange={this.handleChange}
+                        name='major'
+                        className='input'
+                        autoComplete='off'
+                        placeholder='Major' />
+                      <span className='mui-Bottom'></span>
+                    </div>
+                  </div>
+                </div>
+                <div className="columns">
+                  <div className="column">
+                    <div className="control location">
+                      <label className='label'>Start Date</label>
+                      <input type="date"
+                        onChange={this.handleChange}
+                        name='begin_attendance'
+                        id='study_range_input'
+                        className='input'
+                        autoComplete='off'
+                        placeholder='Range' />
+                      <span className='mui-Bottom'></span>
+                    </div>
+                  </div>
+                  <div className="column">
+                    <div className="control location">
+                      <label className='label'>Graduation</label>
+                      <input type="date"
+                        onChange={this.handleChange}
+                        name='graduation'
+                        id='study_range_input'
+                        className='input'
+                        autoComplete='off'
+                        placeholder='Range' />
+                      <span className='mui-Bottom'></span>
+                    </div>
+                  </div>
+                  <div className="column">
+                    <div className="control website">
+                      <label className='label'>GPA</label>
+                      <input type="number"
+                        onChange={this.handleChange}
+                        name='gpa'
+                        step="0.01"
+                        min='0'
+                        id='gpa_input'
+                        className='input'
+                        autoComplete='off'
+                        placeholder='Grade Point Average' />
+                      <span className='mui-Bottom'></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <SaveButton saveData={this.formSubmit} />
         </div>
           {this.props.parentState.education.map(component => 
             <EducationSaved

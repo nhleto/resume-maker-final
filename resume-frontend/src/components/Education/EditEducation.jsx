@@ -54,14 +54,14 @@ export class EditEducation extends Component {
         </div>
       </div>
     </div>
-    {/* <DeleteButton
+    <DeleteButton
     component={this.props.component}
     deleteSection={this.props.deleteSection}
     name={'Delete Education'} />
     <EditButton
     name={'Edit Education'}
-    editData={this.props.editData}
-    component={this.props.component} /> */}
+    editSection={this.props.editSection}
+    component={this.props.component} />
    </div>
     )
   }

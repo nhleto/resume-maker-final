@@ -1,33 +1,51 @@
 import React from "react";
-import { DeleteButton } from "./Buttons/DeleteButton";
-import { AddButton } from "./Buttons/AddButton";
+import shortid from 'shortid';
+import SaveButton from "../Buttons/SaveButton";
 
 
 export class WorkExperience extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      work_experience: {}
+      saved: false,
+      company_name: '',
+      title: '',
+      responsibiliites: '',
+      start_of_employment: '',
+      end_employment: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.formSubmit = this.formSubmit.bind(this)
   }
 
   handleChange(evt) {
-    const value = evt.target.value
     this.setState({
-      work_experience: { ...this.state.work_experience, [evt.target.name]: value }
-    }, () => {
-      this.props.onInputChange(this.state);
+      [evt.target.name]: evt.target.value
     })
   }
 
+  formSubmit(e){
+    e.preventDefault();
+    this.props.onSubmit({
+      id: shortid.generate(),
+      company_name: this.state.company_name,
+      title: this.state.title,
+      responsibiliites: this.state.responsibiliites,
+      start_of_employment: this.state.start_of_employment,
+      end_employment: this.state.end_employment
+    }, this.setState({
+      saved: true,
+      // institution_name: '',
+      // major: '',
+      // begin_attendance: '',
+      // graduation: '',
+      // gpa: ''
+    }))
+  }
+
+
   render() {
-    let button;
-    if (this.props.index + 1 === this.props.parentState.work_counter) {
-      button = <AddButton name={'Add Work Experience +'}
-        value={'work_counter'}
-        addSection={this.props.addSection} />
-    }
+
     return (
       <div className="section">
         <div className="sub-section">
@@ -85,8 +103,7 @@ export class WorkExperience extends React.Component {
                         name='start_of_employment'
                         id='website_input'
                         className='input'
-                        autoComplete='off'
-                        placeholder='Website' />
+                        autoComplete='off'/>
                       <span className='mui-Bottom'></span>
                     </div>
                   </div>
@@ -98,8 +115,7 @@ export class WorkExperience extends React.Component {
                         onChange={this.handleChange}
                         name='end_of_employment'
                         className='input'
-                        autoComplete='off'
-                        placeholder='Email' />
+                        autoComplete='off' />
                       <span className='mui-Bottom'></span>
                     </div>
                   </div>
@@ -107,12 +123,17 @@ export class WorkExperience extends React.Component {
               </div>
             </div>
           </div>
-          {button}
-          <DeleteButton
-            name={'Delete Work Experience'}
-            value={'work_counter'}
-            deleteSection={this.props.deleteSection} />
         </div>
+        <SaveButton saveData={this.formSubmit} />
+          {/* {this.props.parentState.work_experience.map(component => 
+            <EducationSaved
+            key={component.id}
+            parentState={this.state}
+            deleteSection={this.props.deleteSection}
+            component={component}
+            onSubmit={this.props.onSubmit}
+            editSection={this.props.editSection} />
+          )} */}
       </div>
     )
   }

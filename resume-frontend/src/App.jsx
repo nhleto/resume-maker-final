@@ -2,7 +2,7 @@ import './App.scss';
 import React from 'react';
 import { Header } from "./components/Header";
 import { Nav } from "./components/Nav";
-import { WorkExperience } from "./components/WorkExperience";
+import { WorkExperience } from "./components/Work/WorkExperience";
 import { Education } from "./components/Education/Education";
 import { Skills } from "./components/Skills";
 
@@ -58,13 +58,21 @@ class App extends React.Component{
     }).then(response => console.log(response))
   }
 
-  editSection(data){
-    console.log(data)
+  editSection(component, state, type){
+    let currentState = [...this.state[type]]
+    delete state.saved
+    state['id'] = component.id
+    this.state[type].forEach((element, i) => {
+      if (element.id === component.id){
+        currentState.splice(i, 1, state)
+        this.setState({ [type]: currentState })
+      }
+    })
   }
 
   deleteSection(data, section_name){
     let currentState = [...this.state[section_name]]
-    currentState.map((component, i) => {
+    currentState.forEach((component, i) => {
       if (component.id === data.id){
         currentState.splice(i, 1)
         this.setState({ [section_name]: currentState })
@@ -84,7 +92,6 @@ class App extends React.Component{
             <Header onInputChange={this.onInputChange} />
 
             <Education
-            onInputChange={this.onInputChange}
             name={`education`}
             onSubmit={this.formSubmit}
             deleteSection={this.deleteSection}
@@ -92,8 +99,8 @@ class App extends React.Component{
             editSection={this.editSection} />
 
             <WorkExperience 
-            onInputChange={this.onInputChange}
             deleteSection={this.deleteSection}
+            onSubmit={this.formSubmit}
             addSection={this.addSection} 
             parentState={this.state} />
 

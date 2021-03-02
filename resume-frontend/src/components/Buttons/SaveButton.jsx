@@ -8,7 +8,7 @@ export class SaveButton extends Component {
         onClick={this.props.saveData}
         type='submit'
         style={{color:'black', marginTop:'10px', marginRight:'20px'}}>
-        Save Education</button>
+        {this.props.name}</button>
     )
   }
 }

@@ -32,7 +32,7 @@ class App extends React.Component{
         let eduState = [...this.state.education]
         this.setState({ education: [data, ...eduState] })
         break;
-      case /responsibilities/.test(keys):
+      case /company/.test(keys):
         let workState = [...this.state.work_experience];
         this.setState({ work_experience: [...workState, data] })
         break;
@@ -92,17 +92,16 @@ class App extends React.Component{
             <Header onInputChange={this.onInputChange} />
 
             <Education
-            name={`education`}
             onSubmit={this.formSubmit}
             deleteSection={this.deleteSection}
             parentState={this.state}
             editSection={this.editSection} />
 
-            <WorkExperience 
+            <WorkExperience
             deleteSection={this.deleteSection}
             onSubmit={this.formSubmit}
-            addSection={this.addSection} 
-            parentState={this.state} />
+            parentState={this.state}
+            editSection={this.editSection} />
 
             <Skills onInputChange={this.onInputChange} />
             <div className="center">

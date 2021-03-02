@@ -9,7 +9,11 @@ export class EditButton extends Component {
   editData(){
     const {component, state, type} = this.props
     this.props.editSection(component, state, type)
+    if (this.props.type === 'work_experience'){
+      this.props.saveSection()
+    }
   }
+  
   render() {
     return (
       <button className='button'

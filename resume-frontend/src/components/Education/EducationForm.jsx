@@ -6,26 +6,7 @@ import { EditButton } from "../Buttons/EditButton";
 export class EducationForm extends Component {
 
   render() {
-    let buttons = [];
 
-    let defVal = ''
-    if (this.props.parentState){
-      defVal = this.props.parentState
-      buttons.push(
-        <DeleteButton
-        component={this.props.parentState}
-        deleteSection={this.props.deleteSection}
-        name={'Delete Education'} />,
-        <EditButton
-        state={this.props.state}
-        type={'education'}
-        editSection={this.props.editSection}
-        name={"Save Data"}
-        component={this.props.parentState} />
-      )
-    } else {
-      buttons = null
-    }
     return (
       <div className="sub-section">
         <div className="info">
@@ -36,7 +17,7 @@ export class EducationForm extends Component {
                 <div className="control name">
                   <label className='label'>Institution Name</label>
                   <input type="text"
-                    defaultValue={defVal.institution_name}
+                    value={this.props.parentState.institution_name}
                     id='institution Name'
                     onChange={this.props.onChange}
                     name='institution_name'
@@ -51,7 +32,7 @@ export class EducationForm extends Component {
                   <label className='label'>Area of Study</label>
                   <input type="text"
                     id='major_input'
-                    defaultValue={defVal.major}
+                    defaultValue={this.props.parentState.major}
                     onChange={this.props.onChange}
                     name='major'
                     className='input'
@@ -66,7 +47,7 @@ export class EducationForm extends Component {
                 <div className="control location">
                   <label className='label'>Start Date</label>
                   <input type="date"
-                    defaultValue={defVal.begin_attendance}
+                    defaultValue={this.props.parentState.begin_attendance}
                     onChange={this.props.onChange}
                     name='begin_attendance'
                     id='study_range_input'
@@ -80,7 +61,7 @@ export class EducationForm extends Component {
                 <div className="control location">
                   <label className='label'>Graduation</label>
                   <input type="date"
-                    defaultValue={defVal.graduation}
+                    defaultValue={this.props.parentState.graduation}
                     onChange={this.props.onChange}
                     name='graduation'
                     id='study_range_input'
@@ -95,7 +76,7 @@ export class EducationForm extends Component {
                   <label className='label'>GPA</label>
                   <input type="number"
                     onChange={this.props.onChange}
-                    defaultValue={defVal.gpa}
+                    defaultValue={this.props.parentState.gpa}
                     name='gpa'
                     step="0.01"
                     min='0'
@@ -110,7 +91,17 @@ export class EducationForm extends Component {
           </div>
         </div>
       </div>
-      {buttons}
+      <DeleteButton
+      component={this.props.parentState}
+      deleteSection={this.props.deleteSection}
+      name={'Delete Education'} />
+
+      <EditButton
+      state={this.props.state}
+      type={'education'}
+      editSection={this.props.editSection}
+      name={"Save Data"}
+      component={this.props.parentState} />
     </div>
     )
   }

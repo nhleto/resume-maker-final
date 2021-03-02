@@ -37,11 +37,11 @@ export class Education extends React.Component {
       gpa: this.state.gpa
     }, this.setState({
       saved: true,
-      // institution_name: '',
-      // major: '',
-      // begin_attendance: '',
-      // graduation: '',
-      // gpa: ''
+      institution_name: '',
+      major: '',
+      begin_attendance: '',
+      graduation: '',
+      gpa: ''
     }))
   }
 
@@ -60,6 +60,7 @@ export class Education extends React.Component {
                     <div className="control name">
                       <label className='label'>Institution Name</label>
                       <input type="text"
+                        value={this.state.institution_name}
                         id='institution Name'
                         onChange={this.handleChange}
                         name='institution_name'
@@ -73,6 +74,7 @@ export class Education extends React.Component {
                     <div className="control phone">
                       <label className='label'>Area of Study</label>
                       <input type="text"
+                        value={this.state.major}
                         id='major_input'
                         onChange={this.handleChange}
                         name='major'
@@ -88,6 +90,7 @@ export class Education extends React.Component {
                     <div className="control location">
                       <label className='label'>Start Date</label>
                       <input type="date"
+                        value={this.state.begin_attendance}
                         onChange={this.handleChange}
                         name='begin_attendance'
                         id='study_range_input'
@@ -101,6 +104,7 @@ export class Education extends React.Component {
                     <div className="control location">
                       <label className='label'>Graduation</label>
                       <input type="date"
+                        value={this.state.graduation}
                         onChange={this.handleChange}
                         name='graduation'
                         id='study_range_input'
@@ -114,6 +118,7 @@ export class Education extends React.Component {
                     <div className="control website">
                       <label className='label'>GPA</label>
                       <input type="number"
+                        value={this.state.gpa}
                         onChange={this.handleChange}
                         name='gpa'
                         step="0.01"
@@ -130,7 +135,7 @@ export class Education extends React.Component {
             </div>
           </div>
         </div>
-        <SaveButton saveData={this.formSubmit} />
+        <SaveButton name={'Save Education'} saveData={this.formSubmit} />
         </div>
           {this.props.parentState.education.map(component => 
             <EducationSaved

@@ -7,7 +7,7 @@ export class EducationSaved extends Component {
   constructor(props){
     super(props)
     
-    const {institution_name, major, begin_attendance, graduation, gpa} = this.props.parentState
+    const {institution_name, major, begin_attendance, graduation, gpa} = this.props.component
 
     this.state = {
       saved: true,
@@ -20,27 +20,12 @@ export class EducationSaved extends Component {
 
     this.editData = this.editData.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.formSubmit = this.formSubmit.bind(this)
   }
 
   handleChange(evt){
     this.setState({
       [evt.target.name]: evt.target.value
     })
-  }
-
-  formSubmit(e){
-    e.preventDefault();
-    this.props.onSubmit({
-      id: shortid.generate(),
-      institution_name: this.state.institution_name,
-      major: this.state.major,
-      begin_attendance: this.state.begin_attendance,
-      graduation: this.state.graduation,
-      gpa: this.state.gpa
-    }, this.setState({
-      saved: true
-    }))
   }
 
   editData(){
@@ -59,7 +44,7 @@ export class EducationSaved extends Component {
         onChange={this.handleChange}
         editSection={this.props.editSection} /> : 
 
-        <EditEducation 
+        <EditEducation
         component={this.props.component}
         deleteSection={this.props.deleteSection} 
         editSection={this.editData} />}
@@ -67,5 +52,3 @@ export class EducationSaved extends Component {
     )
   }
 }
-
-// export default EducationSave

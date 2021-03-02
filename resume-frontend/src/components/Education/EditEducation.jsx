@@ -3,13 +3,6 @@ import { DeleteButton } from "../Buttons/DeleteButton";
 import { EditButton } from "../Buttons/EditButton";
 
 export class EditEducation extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       
-    }
-  }
   
   render() {
     return (
@@ -55,9 +48,11 @@ export class EditEducation extends Component {
       </div>
     </div>
     <DeleteButton
+    type={'education'}
     component={this.props.component}
     deleteSection={this.props.deleteSection}
     name={'Delete Education'} />
+    
     <EditButton
     name={'Edit Education'}
     editSection={this.props.editSection}

@@ -1,7 +1,7 @@
 import React from "react";
 import shortid from 'shortid';
 import SaveButton from "../Buttons/SaveButton";
-
+import { WorkSaved } from "./WorkSaved";
 
 export class WorkExperience extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ export class WorkExperience extends React.Component {
       saved: false,
       company_name: '',
       title: '',
-      responsibiliites: '',
+      responsibilities: '',
       start_of_employment: '',
       end_employment: ''
     }
@@ -30,19 +30,18 @@ export class WorkExperience extends React.Component {
       id: shortid.generate(),
       company_name: this.state.company_name,
       title: this.state.title,
-      responsibiliites: this.state.responsibiliites,
+      responsibilities: this.state.responsibilities,
       start_of_employment: this.state.start_of_employment,
       end_employment: this.state.end_employment
     }, this.setState({
-      saved: true,
-      // institution_name: '',
-      // major: '',
-      // begin_attendance: '',
-      // graduation: '',
-      // gpa: ''
+      company_name: '',
+      title: '',
+      responsibilities: '',
+      start_of_employment: '',
+      end_employment: '',
+      saved: true
     }))
   }
-
 
   render() {
 
@@ -58,6 +57,7 @@ export class WorkExperience extends React.Component {
                     <div className="control name">
                       <label className='label'>Company Name</label>
                       <input type="text"
+                        value={this.state.company_name}
                         onChange={this.handleChange}
                         name='company_name'
                         id='company_input'
@@ -71,6 +71,7 @@ export class WorkExperience extends React.Component {
                     <div className="control phone">
                       <label className='label'>Title</label>
                       <input type="text"
+                        value={this.state.title}
                         onChange={this.handleChange}
                         name='title'
                         id='title_input'
@@ -86,8 +87,9 @@ export class WorkExperience extends React.Component {
                     <div className="control">
                       <label className='label'>Responsibilities</label>
                       <textarea rows='5'
+                        value={this.state.responsibilities}
                         onChange={this.handleChange}
-                        name='responsibilites'
+                        name='responsibilities'
                         id='responsibilities_input'
                         className='input'
                         autoComplete='off'
@@ -99,6 +101,7 @@ export class WorkExperience extends React.Component {
                       style={{ marginRight: '0' }}>
                       <label className='label'>Start of Employment</label>
                       <input type="date"
+                        value={this.state.start_of_employment}
                         onChange={this.handleChange}
                         name='start_of_employment'
                         id='website_input'
@@ -111,6 +114,7 @@ export class WorkExperience extends React.Component {
                     <div className="control">
                       <label className='label'>End of Employment</label>
                       <input type="date"
+                        value={this.state.end_employment}
                         id='email_input'
                         onChange={this.handleChange}
                         name='end_of_employment'
@@ -124,16 +128,15 @@ export class WorkExperience extends React.Component {
             </div>
           </div>
         </div>
-        <SaveButton saveData={this.formSubmit} />
-          {/* {this.props.parentState.work_experience.map(component => 
-            <EducationSaved
+        <SaveButton name={'Save Work Experience'} saveData={this.formSubmit} />
+          {this.props.parentState.work_experience.map(component => 
+            <WorkSaved
+            deleteSection={this.props.deleteSection}
+            editSection={this.props.editSection}
             key={component.id}
             parentState={this.state}
-            deleteSection={this.props.deleteSection}
-            component={component}
-            onSubmit={this.props.onSubmit}
-            editSection={this.props.editSection} />
-          )} */}
+            parentComponent={component} />
+          )}
       </div>
     )
   }

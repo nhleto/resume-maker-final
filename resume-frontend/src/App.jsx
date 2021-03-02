@@ -25,24 +25,21 @@ class App extends React.Component{
   }
 
   formSubmit(data){
-    console.log(data)
     let keys = Object.keys(data).join()
     switch (true) {
       case /gpa/.test(keys):
         let eduState = [...this.state.education]
-        this.setState({ education: [data, ...eduState] })
+        this.setState({ education: [...eduState, data] })
         break;
       case /company/.test(keys):
         let workState = [...this.state.work_experience];
         this.setState({ work_experience: [...workState, data] })
         break;
       case /email/.test(keys):
-        let headerState = [...this.state.header]
-        this.setState({ header: [...headerState, data] })
+        this.setState({ header: data })
         break;
       default:
-        let skills = [...this.state.skill_name]
-        this.setState({ skill_name: [...skills, data] })
+        this.setState({ skill_name: data })
         break;
     }
   }
@@ -89,7 +86,7 @@ class App extends React.Component{
         </header>
         <div className="columns is-centered" style={{margin:'0'}}>
           <div className="column is-three-fifths">
-            <Header onInputChange={this.onInputChange} />
+            <Header formSubmit={this.formSubmit} />
 
             <Education
             onSubmit={this.formSubmit}
@@ -103,7 +100,8 @@ class App extends React.Component{
             parentState={this.state}
             editSection={this.editSection} />
 
-            <Skills onInputChange={this.onInputChange} />
+            <Skills formSubmit={this.formSubmit} />
+            
             <div className="center">
               <button className='button'
               onClick={this.grabState}

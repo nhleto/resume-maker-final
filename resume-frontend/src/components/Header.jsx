@@ -1,32 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-export class Header extends React.Component{
+export const Header = (props) => {
 
-  constructor(props){
-    super(props)
+  const [input, setInput] = useState({
+    name: '',
+    phone: '',
+    location: '',
+    website: '',
+    email: ''
+  });
 
-    this.state = {
-      headers: ({
-        name: '',
-        phone: '',
-        location: '',
-        website: '',
-        email: ''
-      })
-    }
-    this.handleChange = this.handleChange.bind(this)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setInput( prevState => ({
+      ...prevState, [name]: value
+    }))
   }
 
-  handleChange(evt){
-    const value = evt.target.value
-    this.setState({
-      headers: {...this.state.headers, [evt.target.name]: value}  
-    }, () => {
-      this.props.onInputChange(this.state);
-    })
-  }
-
-  render(){
+  useEffect(() => {
+    props.formSubmit(input)
+  },[input])
 
     return(
       <div className="section">
@@ -41,7 +34,7 @@ export class Header extends React.Component{
                       <label className='label'>Name</label>
                       <input type="text"
                       name='name'
-                      onChange={this.handleChange}
+                      onChange={handleChange}
                       id='name_input'
                       className='input'
                       autoComplete='off'
@@ -53,7 +46,7 @@ export class Header extends React.Component{
                     <div className="control phone">
                       <label className='label'>Phone</label>
                       <input type="tel"
-                      onChange={this.handleChange}
+                      onChange={handleChange}
                       name='phone'
                       id='phone_input'
                       className='input'
@@ -68,7 +61,7 @@ export class Header extends React.Component{
                     <div className="control location">
                       <label className='label'>Location</label>
                       <input type="text"
-                      onChange={this.handleChange}
+                      onChange={handleChange}
                       name='location'
                       id='location_input'
                       className='input'
@@ -82,7 +75,7 @@ export class Header extends React.Component{
                       <label className='label'>Website</label>
                       <input type="text"
                       name='website'
-                      onChange={this.handleChange}
+                      onChange={handleChange}
                       id='website_input'
                       className='input'
                       autoComplete='off'
@@ -95,7 +88,7 @@ export class Header extends React.Component{
                       <label className='label'>Email</label>
                       <input type="email"
                       name='email'
-                      onChange={this.handleChange}
+                      onChange={handleChange}
                       id='email_input'
                       className='input'
                       autoComplete='off'
@@ -110,5 +103,4 @@ export class Header extends React.Component{
         </div>
       </div>
     )
-  }
 }

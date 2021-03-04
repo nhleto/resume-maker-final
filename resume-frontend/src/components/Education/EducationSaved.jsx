@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import shortid from "shortid";
 import { EducationForm } from "./EducationForm";
 import { EditEducation } from "./EditEducation";
 

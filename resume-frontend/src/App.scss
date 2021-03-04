@@ -18,7 +18,12 @@
 @import "bulma/sass/grid/columns.sass";
 @import "bulma/sass/elements/tag.sass";
 @import "bulma/sass/elements/box.sass";
-// @import "bulma/sass/elements/button.sass";
+
+@media only screen and (max-width: 1080px){
+  #options{
+    display: none;
+  }
+}
 
 *{
   box-sizing: border-box;
@@ -249,4 +254,12 @@ button:hover{
 .tag-container{
   display: flex;
   justify-content: center;
+}
+
+#options{
+  background-color: #2c2c2c;
+  border-left: 4px solid #faf0ca;
+  border-top: 4px solid #faf0ca;
+  border-radius: 5px;
+  height: 100%;
 }

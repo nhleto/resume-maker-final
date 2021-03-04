@@ -85,7 +85,8 @@ class App extends React.Component{
           <Nav/>
         </header>
         <div className="columns is-centered" style={{margin:'0'}}>
-          <div className="column is-three-fifths">
+          <div className="column is-one-quarter"></div>
+          <div className="column is-half">
             <Header formSubmit={this.formSubmit} />
 
             <Education
@@ -100,7 +101,9 @@ class App extends React.Component{
             parentState={this.state}
             editSection={this.editSection} />
 
-            <Skills formSubmit={this.formSubmit} />
+            <Skills
+            parentState={this.state.skill_name}
+            formSubmit={this.formSubmit} />
             
             <div className="center">
               <button className='button'
@@ -108,6 +111,11 @@ class App extends React.Component{
               type='submit'
               style={{color:'black', marginTop:'10px'}}>
               Create Resume/Header</button>
+            </div>
+          </div>
+          <div className="column is-one-quarter">
+            <div className="section" id="options">
+              Poggers
             </div>
           </div>
         </div>

@@ -14,11 +14,12 @@ class App extends React.Component{
     super(props)
 
     this.state = {
-      education: [],
-      work_experience: [],
-      header: [],
-      skill_name: [],
+      educations: [],
+      work_experiences: [],
+      headers: [],
+      skills: [],
     }
+    this.submitter = this.submitter.bind(this)
     this.formSubmit = this.formSubmit.bind(this)
     this.deleteSection = this.deleteSection.bind(this)
     this.editSection = this.editSection.bind(this)
@@ -28,30 +29,31 @@ class App extends React.Component{
     let keys = Object.keys(data).join()
     switch (true) {
       case /gpa/.test(keys):
-        let eduState = [...this.state.education]
-        this.setState({ education: [...eduState, data] })
+        let eduState = [...this.state.educations]
+        this.setState({ educations: [...eduState, data] })
         break;
       case /company/.test(keys):
-        let workState = [...this.state.work_experience];
-        this.setState({ work_experience: [...workState, data] })
+        let workState = [...this.state.work_experiences];
+        this.setState({ work_experiences: [...workState, data] })
         break;
       case /email/.test(keys):
-        this.setState({ header: data })
+        this.setState({ headers: [data] })
         break;
       default:
-        this.setState({ skill_name: data })
+        this.setState({ skills: data })
         break;
     }
   }
 
   async submitter(){
+    // console.log(this.formatParams(this.state))
     console.log(this.state)
     await fetch(api_url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.state.resume)
+        body: JSON.stringify(this.state.headers)
     }).then(response => console.log(response))
   }
 
@@ -102,21 +104,21 @@ class App extends React.Component{
             editSection={this.editSection} />
 
             <Skills
-            parentState={this.state.skill_name}
+            parentState={this.state.skills}
             formSubmit={this.formSubmit} />
             
             <div className="center">
               <button className='button'
-              onClick={this.grabState}
+              onClick={this.submitter}
               type='submit'
               style={{color:'black', marginTop:'10px'}}>
               Create Resume/Header</button>
             </div>
           </div>
           <div className="column is-one-quarter">
-            <div className="section" id="options">
+            {/* <div className="section" id="options">
               Poggers
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -45,7 +45,6 @@ export const Skills = (props) => {
     formSubmit(skills);
   }, [skills, formSubmit])
 
-
   return(
     <div className="section">
       <div className="sub-section">

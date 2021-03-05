@@ -129,7 +129,7 @@ export class WorkExperience extends React.Component {
           </div>
         </div>
         <SaveButton name={'Save Work Experience'} saveData={this.formSubmit} />
-          {this.props.parentState.work_experience.map(component => 
+          {this.props.parentState.work_experiences.map(component => 
             <WorkSaved
             deleteSection={this.props.deleteSection}
             editSection={this.props.editSection}

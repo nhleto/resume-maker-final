@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 export const Header = (props) => {
-
+  const {formSubmit} = props
+  
   const [input, setInput] = useState({
     name: '',
     phone: '',
@@ -18,8 +19,8 @@ export const Header = (props) => {
   }
 
   useEffect(() => {
-    props.formSubmit(input)
-  },[input])
+    formSubmit(input)
+  },[input, formSubmit])
 
     return(
       <div className="section">

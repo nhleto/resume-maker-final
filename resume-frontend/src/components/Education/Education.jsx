@@ -137,7 +137,7 @@ export class Education extends React.Component {
         </div>
         <SaveButton name={'Save Education'} saveData={this.formSubmit} />
         </div>
-          {this.props.parentState.education.map(component => 
+          {this.props.parentState.educations.map(component => 
             <EducationSaved
             key={component.id}
             parentState={this.state}

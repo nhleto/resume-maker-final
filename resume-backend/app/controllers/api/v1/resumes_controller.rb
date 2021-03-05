@@ -87,6 +87,6 @@ class Api::V1::ResumesController < ApplicationController
   def resume_params
     # byebug
     # json_params = ActionController::Parameters.new(JSON.parse(params))
-    params.require(:resume).permit(:name, headers: %i[name phone email website location])
+    params.permit(:resume, headers: %i[name phone email location website])
   end
 end
